@@ -1,0 +1,89 @@
+<mat-toolbar>
+
+  <mat-toolbar-row fxLayout.xs="column" fxLayoutGap.xs="20px" [dir]="direction" class="toolbar">
+
+    <section class="fontY">
+      {{header1}}
+    </section>
+
+    <section fxFlex fxLayout fxLayoutAlign="flex-end"  fxLayoutGap="10px">
+
+    </section>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
+<Section    class="toolSection" mat-elevation-z8>
+
+  <div class="tools" fxLayout.gt-xs fxLayoutGap="20px" [dir]="direction">
+    <mat-form-field appearance="fill">
+      <mat-label>{{customer}}</mat-label>
+      <mat-select
+        [(ngModel)]="customerId"
+        (selectionChange)="onChangeCustomer($event.value)"
+        [ngModelOptions]="{standalone: true}"
+      >
+        <mat-option
+          *ngFor="let choice of customers"
+          [value]="choice.id"
+        >
+          {{ choice.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button class="add_btn" (click)="onBalance()" mat-button color="primary"  [disabled]="disabled">{{balanceSummary}}</button>
+    <button class="add_btn" (click)="onProfile()" mat-button color="primary" [disabled]="disabled">{{fullProfile}}</button>
+    
+  </div>
+
+</Section>
+
+<mat-divider></mat-divider>
+
+<mat-toolbar>
+
+  <mat-toolbar-row fxLayout.xs="column" fxLayoutGap.xs="20px" [dir]="direction" class="toolbar">
+
+    <section class="fontY">
+      {{header2}}
+    </section>
+
+    <section fxFlex fxLayout fxLayoutAlign="flex-end"  fxLayoutGap="10px">
+
+    </section>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
+<Section    class="toolSection" mat-elevation-z8>
+
+  <div class="tools" fxLayout.gt-xs fxLayoutGap="20px" [dir]="direction">
+    <mat-form-field appearance="fill">
+      <mat-label>{{invoice}}</mat-label>
+      <mat-select
+        [(ngModel)]="invoiceId"
+        (selectionChange)="onChangeInvoice($event.value)"
+        [ngModelOptions]="{standalone: true}"
+      >
+        <mat-option
+          *ngFor="let choice of invoices"
+          [value]="choice.id"
+        >
+          {{ choice.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button class="add_btn" (click)="onFetch()" mat-button color="primary"  [disabled]="disabled2">{{fetchDetails}}</button>
+    
+    
+  </div>
+
+</Section>
+
+
+
+
+
+
+
+
