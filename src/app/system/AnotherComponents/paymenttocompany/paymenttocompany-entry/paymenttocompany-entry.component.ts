@@ -608,17 +608,17 @@ export class PaymentToCompanyEntryComponent implements OnInit {
 }
 
   onChangePaymentAganist(id: number) {
-    if (id == 31003) {
+    if (id == 26001) {
       this.data[10].value = "1"
       this.data[11].value = "1"
       this.inAppearance = true
       this.chAppearance = false
-    } else if (id == 31002) {
+    } else if (id == 26002) {
       this.data[10].value = "1"
       this.data[11].value = "1"
       this.inAppearance = false
       this.chAppearance = true
-    } else if (id == 31001) {
+    } else if (id == 26003) {
       this.data[10].value = "1"
       this.data[11].value = "1"
       this.inAppearance = false

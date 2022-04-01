@@ -302,12 +302,12 @@ elemSource = new MatTableDataSource(this.elem);
         }
       })
 
-      this._myService.getForexRate(this.pModel.currency, this.pModel.entryDate).subscribe((resu: forexRateModel) => {
-        this._ui.loadingStateChanged.next(false);
-        console.log(resu)
-        this.pModel.forexRate = resu.name
+      // this._myService.getForexRate(this.pModel.currency, this.pModel.entryDate).subscribe((resu: forexRateModel) => {
+      //   this._ui.loadingStateChanged.next(false);
+      //   console.log(resu)
+      //   this.pModel.forexRate = resu.name
         
-      })
+      // })
 
       
   }

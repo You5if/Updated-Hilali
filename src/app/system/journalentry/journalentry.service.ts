@@ -87,7 +87,7 @@ export class JournalEntryService {
      }
 
      getForexRate(idC:number, idD:string): Observable<forexRateModel> {
-      return this.httpClient.get<forexRateModel>(this._globals.baseAPIUrl + 'SuppForex/getforex/' + idC + '/' + idD).pipe(
+      return this.httpClient.get<forexRateModel>(this._globals.baseAPIUrl + 'Forex/getforex/' + idC + '/' + idD).pipe(
       map((result: forexRateModel) => {
       return result;
       }), catchError(this._cf.handleError)

@@ -114,7 +114,7 @@ export class PaymentToCompanyComponent implements OnInit {
 
     if (this.role === '2') {
       this.displayedColumns =
-        ['select','PaymentDate', 'PaymentCode', 'PaymentType','customer', 'amount', 'state'];
+        ['select','PaymentDate', 'PaymentCode', 'PaymentType','customer', 'amount'];
 
     } else if (this.role === '3') {
       this.displayedColumns =
@@ -122,7 +122,7 @@ export class PaymentToCompanyComponent implements OnInit {
 
     }else if (this.role === '5') {
       this.displayedColumns =
-        ['select','PaymentDate', 'PaymentCode', 'PaymentType','customer', 'amount', 'state'];
+        ['select','PaymentDate', 'PaymentCode', 'PaymentType','customer', 'amount'];
 
     }
     
