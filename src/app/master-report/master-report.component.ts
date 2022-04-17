@@ -65,6 +65,8 @@ export class MasterReportComponent implements OnInit {
     }
   }
 
+ 
+  
   onSubmit() {
     if (this.role == "4")
       this.myForm.value.company = localStorage.getItem("sdCompanyId");

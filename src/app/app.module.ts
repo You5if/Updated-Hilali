@@ -279,6 +279,7 @@ import { ConfBoxComponent } from "./system/AnotherComponents/confirmbox/checkfor
 import { CheckforstateCompComponent } from "./system/AnotherComponents/paymenttocompany/statecheck/checkfordelete.component";
 import { CheckforsubmitComponent } from "./system/AnotherComponents/paymenttocompany/submitcheck/checkfordelete.component";
 import { CheckforstateComponent } from "./system/journalentry/operation/statecheck/checkfordelete.component";
+import { MyTestAutoComponent } from "./system/my-test-auto/my-test-auto.component";
 
 
 
@@ -554,7 +555,8 @@ export const jwtConfig = {
     ConfBoxComponent,
     Movetobank2Component,
     ChequeFromCompanyEntryComponent,
-    Checkforpass2Component
+    Checkforpass2Component,
+    MyTestAutoComponent,
     
 
 
@@ -732,7 +734,8 @@ export const jwtConfig = {
     ConfBoxComponent,
     Movetobank2Component,
     ChequeFromCompanyEntryComponent,
-    Checkforpass2Component
+    Checkforpass2Component,
+    MyTestAutoComponent
   ]
 })
 export class AppModule {}

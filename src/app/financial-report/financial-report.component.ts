@@ -39,6 +39,8 @@ export class FinancialReportComponent implements OnInit {
     this.role = localStorage.getItem("role");
   }
 
+  
+  
   onSubmit() {
     let invoiceNo;
     if (this.myForm.value.invoice === "") {
@@ -77,6 +79,7 @@ export class FinancialReportComponent implements OnInit {
   //   console.log(restOfUrl);
   // }
 
+  
   // onSubmit() {
   //   const fromDate = this.datePipe.transform(
   //     this.myForm.value.fromDate,

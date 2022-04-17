@@ -60,6 +60,8 @@ export class ReportComponent implements OnInit {
   }
   
 
+  
+  
   onSubmit() {
     if(this.role == '4') this.myForm.value.company = localStorage.getItem('sdCompanyId');
     const fromDate = this.datePipe.transform(this.myForm.value.fromDate, 'yyyy-M-d')

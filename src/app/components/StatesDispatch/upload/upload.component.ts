@@ -79,6 +79,8 @@ export class AttendanceuploadComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  
+  
   onSubmit() {
     this.http
       .post(this._globals.baseAPIUrl + "HRMSAttendance/DDo", {})

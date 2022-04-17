@@ -93,7 +93,9 @@ export class ChequeToCompanyComponent implements OnInit {
       }
 
   ngOnInit() {
-    if (this.role == '5') {
+    if (this.role == '2') {
+      this.displayedColumns = ['select','chequeNumber', 'amount'  , 'customerName', 'customerMobile1', 'dueDate', 'passFail', 'status'];
+    }else if (this.role == '5') {
       this.displayedColumns = ['select','chequeNumber', 'amount'  , 'customerName', 'customerMobile1', 'dueDate', 'passFail', 'status'];
     }else {
       this.displayedColumns =['select','chequeNumber', 'amount'  , 'customerName', 'customerMobile1', 'dueDate', 'status'];
@@ -137,17 +139,30 @@ export class ChequeToCompanyComponent implements OnInit {
       
       
     }
-    this._cf.getPageData('ChequeToCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
-      this.recordsPerPage, this.currentPageIndex, false).subscribe(
-        (result) => {
-          this.totalRecords = result[0].totalRecords;
+
+    this.pageData.sort = this._cf.sortVar
+    this.pageData.filter = this._cf.filterVar
+
+    this._ui.loadingStateChanged.next(true);
+    this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
+      this._ui.loadingStateChanged.next(false);
+      this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
           this.indexes = result
-          console.log(result);
+          console.log(result)
+    })
+    // this._cf.getPageData('ChequeToCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
+    //   this.recordsPerPage, this.currentPageIndex, false).subscribe(
+    //     (result) => {
+    //       this.totalRecords = result[0].totalRecords;
+    //       this.recordsPerPage = this.recordsPerPage;
+    //       this.dataSource = new MatTableDataSource(result);
+    //       this.indexes = result
+    //       console.log(result);
           
-        }
-      );
+    //     }
+    //   );
 
     this._auth.getScreenRights(this.menuId).subscribe((rights: RightModel) => {
       this.screenRights = {
@@ -300,8 +315,13 @@ checkFail  (id: number) {
 
   paginatoryOperation(event: PageEvent) {
     try {
-      this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
-        this.pTableId, this.totalRecords).subscribe(
+      this.pageData.sort = this._cf.sortVar
+    this.pageData.filter = this._cf.filterVar
+      this.pageData.recordsPerPage = event.pageSize
+      this._cf.newGetPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
+        this.pTableId, this.totalRecords, 
+        this.pageData.sort, 
+        this.pageData.filter).subscribe(
           (result: any) => {
             this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
@@ -312,6 +332,18 @@ checkFail  (id: number) {
             this._msg.showAPIError(error);
             return false;
           });
+      // this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
+      //   this.pTableId, this.totalRecords).subscribe(
+      //     (result: any) => {
+      //       this._ui.loadingStateChanged.next(false);
+      //       this.totalRecords = result[0].totalRecords;
+      //       this.recordsPerPage = event.pageSize;
+      //       this.dataSource = result;
+      //     }, error => {
+      //       this._ui.loadingStateChanged.next(false);
+      //       this._msg.showAPIError(error);
+      //       return false;
+      //     });
     } catch (error:any) {
       this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);

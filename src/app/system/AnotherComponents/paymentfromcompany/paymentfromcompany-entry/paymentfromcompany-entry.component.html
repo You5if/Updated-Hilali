@@ -1,23 +1,24 @@
-
-
-<section class="section" [dir]="direction" >
-
+<section class="section" [dir]="direction">
   <div class="bigMain" fxLayout>
     <h3 class="fontY">
-      {{ dialog_title  }} 
+      {{ dialog_title }}
     </h3>
-    <img (click)="onCancel()" class="cancel_Img" src="../../../../assets/images/svg/close.png" alt="">
+    <img
+      (click)="onCancel()"
+      class="cancel_Img"
+      src="../../../../assets/images/svg/close.png"
+      alt=""
+    />
   </div>
 
-  <form class="Main" [dir]="direction"  >
+  <form class="Main" [dir]="direction">
     <div class="container">
       <mat-grid-list
         [cols]="breakpoint"
         rowHeight="110px"
         (window:resize)="onResize($event)"
-
       >
-        <div  *ngFor="let source of light">
+        <div *ngFor="let source of light">
           <div [ngSwitch]="source.type">
             <mat-grid-tile *ngSwitchCase="'Date'">
               <div [ngSwitch]="source.access">
@@ -30,87 +31,82 @@
                     type="date"
                     placeholder="Date"
                   />
-
-
                 </mat-form-field>
                 <div
-                *ngSwitchCase="'ViewOnly'"
-                fxLayout
-                fxLayoutGap="10px"
-
-                class="radio"
+                  *ngSwitchCase="'ViewOnly'"
+                  fxLayout
+                  fxLayoutGap="10px"
+                  class="radio"
                 >
                   <h3>{{ source.label }}:</h3>
                   <h5>{{ source.value }}</h5>
                 </div>
-
               </div>
-
             </mat-grid-tile>
             <mat-grid-tile *ngSwitchCase="'Number'">
               <div [ngSwitch]="source.access">
                 <div *ngSwitchCase="'Editable'">
                   <div fxLayout="column" *ngIf="source.tableColumnId == 306">
-                    <mat-form-field  appearance="outline" >
+                    <mat-form-field appearance="outline">
                       <mat-label>{{ source.label }}</mat-label>
                       <input
                         matInput
                         [(ngModel)]="source.value"
                         (input)="onAmountChange($event)"
-                        [ngModelOptions]="{standalone: true}"
+                        [ngModelOptions]="{ standalone: true }"
                         type="textbox"
-                    placeholder="Number"
-                    appIsDecimalDirective
+                        placeholder="Number"
+                        appIsDecimalDirective
                       />
-    
-    
                     </mat-form-field>
-                    <h6 class="error" *ngIf="amountError">Amount is greater than credit</h6>
+                    <h6 class="error" *ngIf="amountError">
+                      Amount is greater than credit
+                    </h6>
                   </div>
                   <div *ngIf="source.tableColumnId == 308">
-                    <mat-form-field  appearance="outline" *ngIf="inAppearance">
+                    <mat-form-field appearance="outline" *ngIf="inAppearance">
                       <mat-label>{{ source.label }}</mat-label>
                       <input
                         matInput
                         [(ngModel)]="source.value"
                         name="{{ source.label }}"
                         type="textbox"
-                    placeholder="Number"
-                    appIsDecimalDirective
+                        placeholder="Number"
+                        appIsDecimalDirective
                       />
-    
-    
                     </mat-form-field>
                   </div>
-                 
+
                   <div *ngIf="source.tableColumnId == 309">
-                    <mat-form-field  appearance="outline" *ngIf="chAppearance">
+                    <mat-form-field appearance="outline" *ngIf="chAppearance">
                       <mat-label>{{ source.label }}</mat-label>
                       <input
                         matInput
                         [(ngModel)]="source.value"
                         name="{{ source.label }}"
                         type="textbox"
-                    placeholder="Number"
-                    appIsDecimalDirective
+                        placeholder="Number"
+                        appIsDecimalDirective
                       />
-    
-    
                     </mat-form-field>
                   </div>
-                  <div *ngIf="source.tableColumnId != 306  && source.tableColumnId != 308 && source.tableColumnId != 309">
-                    <mat-form-field  appearance="outline">
+                  <div
+                    *ngIf="
+                      source.tableColumnId != 306 &&
+                      source.tableColumnId != 308 &&
+                      source.tableColumnId != 309
+                    "
+                  >
+                    <mat-form-field appearance="outline">
                       <mat-label>{{ source.label }}</mat-label>
                       <input
                         matInput
                         [(ngModel)]="source.value"
                         name="{{ source.label }}"
                         type="textbox"
-                    placeholder="Number"
-                    appIsDecimalDirective
+                        placeholder="Number"
+                        appIsDecimalDirective
                       />
-    
-    
                     </mat-form-field>
                   </div>
                 </div>
@@ -136,11 +132,8 @@
                     [(ngModel)]="source.value"
                     name="{{ source.label }}"
                     type="text"
-
                     placeholder="Type some text"
                   />
-
-
                 </mat-form-field>
 
                 <div
@@ -158,24 +151,28 @@
             <mat-grid-tile *ngSwitchCase="'Checkbox'">
               <div [ngSwitch]="source.access">
                 <mat-checkbox
-                *ngSwitchCase="'Editable'"
-                [ngModel]="source.value == '1' ? true : source.value == '0' ? false : null"
-                (ngModelChange)="source.value = $event ? '1' : '0'"
+                  *ngSwitchCase="'Editable'"
+                  [ngModel]="
+                    source.value == '1'
+                      ? true
+                      : source.value == '0'
+                      ? false
+                      : null
+                  "
+                  (ngModelChange)="source.value = $event ? '1' : '0'"
+                  name="{{ source.label }}"
+                  >{{ source.label }}</mat-checkbox
+                >
 
-
-                name="{{ source.label }}"
-                >{{ source.label }}</mat-checkbox
-              >
-
-              <div
-                fxLayout
-                fxLayoutGap="10px"
-                *ngSwitchCase="'ViewOnly'"
-                class="radio"
-              >
-                <h3>{{ source.label }}:</h3>
-                <h5>{{ source.value }}</h5>
-              </div>
+                <div
+                  fxLayout
+                  fxLayoutGap="10px"
+                  *ngSwitchCase="'ViewOnly'"
+                  class="radio"
+                >
+                  <h3>{{ source.label }}:</h3>
+                  <h5>{{ source.value }}</h5>
+                </div>
               </div>
             </mat-grid-tile>
             <mat-grid-tile *ngSwitchCase="'Time'">
@@ -209,13 +206,10 @@
                     matInput
                     rows="2"
                     [(ngModel)]="source.value"
-
                     name="{{ source.label }}"
                     type="text"
                     placeholder="Type some text"
                   ></textarea>
-
-
                 </mat-form-field>
 
                 <div
@@ -229,16 +223,32 @@
                 </div>
               </div>
             </mat-grid-tile>
+            <mat-grid-tile *ngSwitchCase="'autocomplete'">
+              <div [ngSwitch]="source.access">
+                <div *ngSwitchCase="'Editable'">
+                  <app-my-test-auto
+                    [refId]="source.refId"
+                    [refCondition]="source.refCondition"
+                    [refTable]="source.refTable"
+                    [refColumn]="source.refColumn"
+                    [labelValue]="source.label"
+                    [initialValue]="source.value"
+                    (resultId)="onResults(source.tableColumnId, $event)"
+                  ></app-my-test-auto>
+                </div>
+              </div>
+            </mat-grid-tile>
             <mat-grid-tile *ngSwitchCase="'dropdown'">
               <div [ngSwitch]="source.access">
                 <div *ngSwitchCase="'Editable'">
                   <div fxLayout="column" *ngIf="source.tableColumnId == 303">
-                    <mat-form-field  appearance="fill">
+                    <mat-form-field appearance="fill">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
-                      #choosedValue (valueChange)="onChangePaymentType(choosedValue.value)"
+                        #choosedValue
+                        (valueChange)="onChangePaymentType(choosedValue.value)"
                         [(ngModel)]="+source.value"
-                        [ngModelOptions]="{standalone: true}"
+                        [ngModelOptions]="{ standalone: true }"
                       >
                         <mat-option
                           *ngFor="let choice of source.myarray"
@@ -254,12 +264,15 @@
                     </div>
                   </div>
                   <div *ngIf="source.tableColumnId == 307">
-                    <mat-form-field  appearance="fill">
+                    <mat-form-field appearance="fill">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
-                      #choosedValue (valueChange)="onChangePaymentAganist(choosedValue.value)"
+                        #choosedValue
+                        (valueChange)="
+                          onChangePaymentAganist(choosedValue.value)
+                        "
                         [(ngModel)]="+source.value"
-                        [ngModelOptions]="{standalone: true}"
+                        [ngModelOptions]="{ standalone: true }"
                       >
                         <mat-option
                           *ngFor="let choice of source.myarray"
@@ -271,7 +284,7 @@
                     </mat-form-field>
                   </div>
                   <div *ngIf="source.tableColumnId == 308">
-                    <mat-form-field  appearance="fill" *ngIf="inAppearance">
+                    <mat-form-field appearance="fill" *ngIf="inAppearance">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
                         [(ngModel)]="+source.value"
@@ -285,10 +298,9 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    
                   </div>
                   <div *ngIf="source.tableColumnId == 309">
-                    <mat-form-field  appearance="fill" *ngIf="chAppearance">
+                    <mat-form-field appearance="fill" *ngIf="chAppearance">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
                         [(ngModel)]="+source.value"
@@ -302,51 +314,55 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    
                   </div>
                   <div *ngIf="source.tableColumnId == 310">
-                    <mat-form-field  appearance="fill">
+                    <mat-form-field appearance="fill">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
                         [(ngModel)]="+source.value"
                         name="{{ source.label }}"
-                        
-                        #choosedValue (valueChange)="onChangeValueC(choosedValue.value)"
+                        #choosedValue
+                        (valueChange)="onChangeValueC(choosedValue.value)"
                       >
                         <mat-option
                           *ngFor="let choice of source.myarray"
                           [value]="choice.id"
-                          
                         >
                           {{ choice.name }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    
                   </div>
                   <div *ngIf="source.tableColumnId == 311">
-                    <mat-form-field  appearance="fill">
+                    <mat-form-field appearance="fill">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
                         [(ngModel)]="+source.value"
                         name="{{ source.label }}"
-                        
-                        #choosedValue (valueChange)="onChangeValueC2(choosedValue.value)"
+                        #choosedValue
+                        (valueChange)="onChangeValueC2(choosedValue.value)"
                       >
                         <mat-option
                           *ngFor="let choice of source.myarray"
                           [value]="choice.id"
-                          
                         >
                           {{ choice.name }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    
                   </div>
-                  
-                  <div *ngIf="source.tableColumnId != 303 && source.tableColumnId != 307 && source.tableColumnId != 308 && source.tableColumnId != 309 && source.tableColumnId != 310 && source.tableColumnId != 311">
-                    <mat-form-field  appearance="fill">
+
+                  <div
+                    *ngIf="
+                      source.tableColumnId != 303 &&
+                      source.tableColumnId != 307 &&
+                      source.tableColumnId != 308 &&
+                      source.tableColumnId != 309 &&
+                      source.tableColumnId != 310 &&
+                      source.tableColumnId != 311
+                    "
+                  >
+                    <mat-form-field appearance="fill">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
                         [(ngModel)]="+source.value"
@@ -360,7 +376,6 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    
                   </div>
                 </div>
 
@@ -376,11 +391,10 @@
               </div>
             </mat-grid-tile>
 
-
-              <div *ngIf="spacezone">
-                <mat-grid-tile *ngSwitchCase="'space'">
-                  <div [ngSwitch]="source.access">
-                    <div *ngSwitchCase="'Editable'" class="space"></div>
+            <div *ngIf="spacezone">
+              <mat-grid-tile *ngSwitchCase="'space'">
+                <div [ngSwitch]="source.access">
+                  <div *ngSwitchCase="'Editable'" class="space"></div>
 
                   <div
                     fxLayout
@@ -391,10 +405,9 @@
                     <h3>{{ source.label }}:</h3>
                     <h5>{{ source.value }}</h5>
                   </div>
-                  </div>
-                </mat-grid-tile>
-              </div>
-
+                </div>
+              </mat-grid-tile>
+            </div>
           </div>
         </div>
       </mat-grid-list>
@@ -404,133 +417,136 @@
         <button mat-raised-button color="primary" (click)="addChild1Item(0)" type="submit">Add cheque</button>
       </div> -->
       <div fxLayout="column" fxLayoutGap="10px" class="cardContainer">
-        <mat-card fxLayout="column" class="card" *ngFor="let sourceChild1 of last.child1;  let i = index" [attr.data-index]="i">
-          <mat-grid-list
-          [cols]="breakpoint"
-          rowHeight="100px"
-          (window:resize)="onResize($event)"
-          
+        <mat-card
+          fxLayout="column"
+          class="card"
+          *ngFor="let sourceChild1 of last.child1; let i = index"
+          [attr.data-index]="i"
         >
-          <div  *ngFor="let source of sourceChild1.records">
-            <div [ngSwitch]="source.type">
-              <mat-grid-tile *ngSwitchCase="'Date'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="date"
-                      placeholder="Date"
-                    />
-  
-  
-                  </mat-form-field>
-                  <div
-                  *ngSwitchCase="'ViewOnly'"
-                  fxLayout
-                  fxLayoutGap="10px"
-  
-                  class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+          <mat-grid-list
+            [cols]="breakpoint"
+            rowHeight="100px"
+            (window:resize)="onResize($event)"
+          >
+            <div *ngFor="let source of sourceChild1.records">
+              <div [ngSwitch]="source.type">
+                <mat-grid-tile *ngSwitchCase="'Date'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="date"
+                        placeholder="Date"
+                      />
+                    </mat-form-field>
+                    <div
+                      *ngSwitchCase="'ViewOnly'"
+                      fxLayout
+                      fxLayoutGap="10px"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-  
-                </div>
-  
-              </mat-grid-tile>
-              <mat-grid-tile *ngSwitchCase="'Number'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field  *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      
-                      name="amount"
-                      (input)="onAmountChange($event)"
-                     
-                      type="textbox"
-                    placeholder="Number"
-                    appIsDecimalDirective
-                    />
-    
-                    <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
-                  </mat-form-field>
-                  <mat-form-field  *ngSwitchCase="'NoAccess'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="number"
-                      
-                      
-                      placeholder="Number"
-                      
-                    />
-    
-                    <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
-                  </mat-form-field>
-                  <div
-                    fxLayout
-                    fxLayoutGap="10px"
-                    *ngSwitchCase="'ViewOnly'"
-                    class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+                </mat-grid-tile>
+                <mat-grid-tile *ngSwitchCase="'Number'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="amount"
+                        (input)="onAmountChange($event)"
+                        type="textbox"
+                        placeholder="Number"
+                        appIsDecimalDirective
+                      />
+
+                      <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
+                    </mat-form-field>
+                    <mat-form-field
+                      *ngSwitchCase="'NoAccess'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="number"
+                        placeholder="Number"
+                      />
+
+                      <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
+                    </mat-form-field>
+                    <div
+                      fxLayout
+                      fxLayoutGap="10px"
+                      *ngSwitchCase="'ViewOnly'"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-                </div>
-              </mat-grid-tile>
-  
-              <mat-grid-tile *ngSwitchCase="'Text'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      
-                      
-                      placeholder="Type some text"
-                    />
-    
-                    
-                  </mat-form-field>
-                  <mat-form-field *ngSwitchCase="'NoAccess'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      minlength="{{ source.min }}"
-                      maxlength="{{ source.max }}}"
-                      #pwInput="ngModel"
-                      placeholder="Type some text"
-                    />
-    
-                    
-                  </mat-form-field>
-                  <div
-                    fxLayout
-                    fxLayoutGap="10px"
-                    *ngSwitchCase="'ViewOnly'"
-                    class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+                </mat-grid-tile>
+
+                <mat-grid-tile *ngSwitchCase="'Text'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        placeholder="Type some text"
+                      />
+                    </mat-form-field>
+                    <mat-form-field
+                      *ngSwitchCase="'NoAccess'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        minlength="{{ source.min }}"
+                        maxlength="{{ source.max }}}"
+                        #pwInput="ngModel"
+                        placeholder="Type some text"
+                      />
+                    </mat-form-field>
+                    <div
+                      fxLayout
+                      fxLayoutGap="10px"
+                      *ngSwitchCase="'ViewOnly'"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-                </div>
-              </mat-grid-tile>
-  
-              <!-- <mat-grid-tile *ngSwitchCase="'Checkbox'">
+                </mat-grid-tile>
+
+                <!-- <mat-grid-tile *ngSwitchCase="'Checkbox'">
                 <div [ngSwitch]="source.access">
                   <mat-checkbox
                   *ngSwitchCase="'Editable'"
@@ -560,7 +576,7 @@
                 </div>
                 </div>
               </mat-grid-tile> -->
-              <!-- <mat-grid-tile *ngSwitchCase="'Time'">
+                <!-- <mat-grid-tile *ngSwitchCase="'Time'">
                 <div [ngSwitch]="source.access">
                   <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
                     <input
@@ -630,49 +646,41 @@
                   </div>
                 </div>
               </mat-grid-tile> -->
-              <mat-grid-tile *ngSwitchCase="'dropdown'">
-                <div [ngSwitch]="source.access">
-                  <div *ngSwitchCase="'Editable'">
-                    
-                    
-                      <mat-form-field  appearance="fill">
+                <mat-grid-tile *ngSwitchCase="'autocomplete'">
+                  <div [ngSwitch]="source.access">
+                    <div *ngSwitchCase="'Editable'">
+                      <app-my-test-auto
+                        [refId]="source.refId"
+                        [refCondition]="source.refCondition"
+                        [refTable]="source.refTable"
+                        [refColumn]="source.refColumn"
+                        [labelValue]="source.label"
+                        [initialValue]="source.value"
+                        (resultId)="onResults(source.tableColumnId, $event)"
+                      ></app-my-test-auto>
+                    </div>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile *ngSwitchCase="'dropdown'">
+                  <div [ngSwitch]="source.access">
+                    <div *ngSwitchCase="'Editable'">
+                      <mat-form-field appearance="fill">
                         <mat-label>{{ source.label }}</mat-label>
                         <mat-select
                           [(ngModel)]="+source.value"
                           (selectionChange)="onChange1($event.value, i)"
-                          [ngModelOptions]="{standalone: true}"
-                          
+                          [ngModelOptions]="{ standalone: true }"
                         >
                           <mat-option
                             *ngFor="let choice of source.myarray"
                             [value]="choice.id"
-                            
                           >
                             {{ choice.name }}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
-                      
-                    
-                  </div>
-  
-                  <div
-                    fxLayout
-                    fxLayoutGap="10px"
-                    *ngSwitchCase="'ViewOnly'"
-                    class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
-                  </div>
-                </div>
-              </mat-grid-tile>
-  
-              
-                <div *ngIf="spacezone">
-                  <mat-grid-tile *ngSwitchCase="'space'">
-                    <div [ngSwitch]="source.access">
-                      <div *ngSwitchCase="'Editable'" class="space"></div>
+                    </div>
+
                     <div
                       fxLayout
                       fxLayoutGap="10px"
@@ -682,18 +690,39 @@
                       <h3>{{ source.label }}:</h3>
                       <h5>{{ source.value }}</h5>
                     </div>
+                  </div>
+                </mat-grid-tile>
+
+                <div *ngIf="spacezone">
+                  <mat-grid-tile *ngSwitchCase="'space'">
+                    <div [ngSwitch]="source.access">
+                      <div *ngSwitchCase="'Editable'" class="space"></div>
+                      <div
+                        fxLayout
+                        fxLayoutGap="10px"
+                        *ngSwitchCase="'ViewOnly'"
+                        class="radio"
+                      >
+                        <h3>{{ source.label }}:</h3>
+                        <h5>{{ source.value }}</h5>
+                      </div>
                     </div>
                   </mat-grid-tile>
                 </div>
-              
+              </div>
             </div>
-          </div>
-        </mat-grid-list>
-        <button mat-icon-button type="button" (click)="deleteFun(i)">
-          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true" color="warn">
-            delete
-          </mat-icon>
-        </button>
+          </mat-grid-list>
+          <button mat-icon-button type="button" (click)="deleteFun(i)">
+            <mat-icon
+              small
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              color="warn"
+            >
+              delete
+            </mat-icon>
+          </button>
         </mat-card>
       </div>
     </div>
@@ -703,133 +732,136 @@
         <button mat-raised-button color="primary" (click)="addChild2Item(0)" type="submit">Add wire tran.</button>
       </div> -->
       <div fxLayout="column" fxLayoutGap="10px" class="cardContainer">
-        <mat-card fxLayout="column" class="card" *ngFor="let sourceChild2 of last.child2;  let i = index" [attr.data-index]="i">
-          <mat-grid-list
-          [cols]="breakpoint"
-          rowHeight="100px"
-          (window:resize)="onResize($event)"
-          
+        <mat-card
+          fxLayout="column"
+          class="card"
+          *ngFor="let sourceChild2 of last.child2; let i = index"
+          [attr.data-index]="i"
         >
-          <div  *ngFor="let source of sourceChild2.records">
-            <div [ngSwitch]="source.type">
-              <mat-grid-tile *ngSwitchCase="'Date'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="date"
-                      placeholder="Date"
-                    />
-  
-  
-                  </mat-form-field>
-                  <div
-                  *ngSwitchCase="'ViewOnly'"
-                  fxLayout
-                  fxLayoutGap="10px"
-  
-                  class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+          <mat-grid-list
+            [cols]="breakpoint"
+            rowHeight="100px"
+            (window:resize)="onResize($event)"
+          >
+            <div *ngFor="let source of sourceChild2.records">
+              <div [ngSwitch]="source.type">
+                <mat-grid-tile *ngSwitchCase="'Date'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="date"
+                        placeholder="Date"
+                      />
+                    </mat-form-field>
+                    <div
+                      *ngSwitchCase="'ViewOnly'"
+                      fxLayout
+                      fxLayoutGap="10px"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-  
-                </div>
-  
-              </mat-grid-tile>
-              <mat-grid-tile *ngSwitchCase="'Number'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field  *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      
-                      name="amount"
-                      (input)="onAmountChange($event)"
-                     
-                      type="textbox"
-                    placeholder="Number"
-                    appIsDecimalDirective
-                    />
-    
-                    <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
-                  </mat-form-field>
-                  <mat-form-field  *ngSwitchCase="'NoAccess'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="number"
-                      
-                      
-                      placeholder="Number"
-                      
-                    />
-    
-                    <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
-                  </mat-form-field>
-                  <div
-                    fxLayout
-                    fxLayoutGap="10px"
-                    *ngSwitchCase="'ViewOnly'"
-                    class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+                </mat-grid-tile>
+                <mat-grid-tile *ngSwitchCase="'Number'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="amount"
+                        (input)="onAmountChange($event)"
+                        type="textbox"
+                        placeholder="Number"
+                        appIsDecimalDirective
+                      />
+
+                      <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
+                    </mat-form-field>
+                    <mat-form-field
+                      *ngSwitchCase="'NoAccess'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="number"
+                        placeholder="Number"
+                      />
+
+                      <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
+                    </mat-form-field>
+                    <div
+                      fxLayout
+                      fxLayoutGap="10px"
+                      *ngSwitchCase="'ViewOnly'"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-                </div>
-              </mat-grid-tile>
-  
-              <mat-grid-tile *ngSwitchCase="'Text'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      
-                      
-                      placeholder="Type some text"
-                    />
-    
-                    
-                  </mat-form-field>
-                  <mat-form-field *ngSwitchCase="'NoAccess'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      minlength="{{ source.min }}"
-                      maxlength="{{ source.max }}}"
-                      #pwInput="ngModel"
-                      placeholder="Type some text"
-                    />
-    
-                    
-                  </mat-form-field>
-                  <div
-                    fxLayout
-                    fxLayoutGap="10px"
-                    *ngSwitchCase="'ViewOnly'"
-                    class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+                </mat-grid-tile>
+
+                <mat-grid-tile *ngSwitchCase="'Text'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        placeholder="Type some text"
+                      />
+                    </mat-form-field>
+                    <mat-form-field
+                      *ngSwitchCase="'NoAccess'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        minlength="{{ source.min }}"
+                        maxlength="{{ source.max }}}"
+                        #pwInput="ngModel"
+                        placeholder="Type some text"
+                      />
+                    </mat-form-field>
+                    <div
+                      fxLayout
+                      fxLayoutGap="10px"
+                      *ngSwitchCase="'ViewOnly'"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-                </div>
-              </mat-grid-tile>
-  
-              <!-- <mat-grid-tile *ngSwitchCase="'Checkbox'">
+                </mat-grid-tile>
+
+                <!-- <mat-grid-tile *ngSwitchCase="'Checkbox'">
                 <div [ngSwitch]="source.access">
                   <mat-checkbox
                   *ngSwitchCase="'Editable'"
@@ -859,7 +891,7 @@
                 </div>
                 </div>
               </mat-grid-tile> -->
-              <!-- <mat-grid-tile *ngSwitchCase="'Time'">
+                <!-- <mat-grid-tile *ngSwitchCase="'Time'">
                 <div [ngSwitch]="source.access">
                   <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
                     <input
@@ -929,49 +961,41 @@
                   </div>
                 </div>
               </mat-grid-tile> -->
-              <mat-grid-tile *ngSwitchCase="'dropdown'">
-                <div [ngSwitch]="source.access">
-                  <div *ngSwitchCase="'Editable'">
-                    
-                    
-                      <mat-form-field  appearance="fill">
+                <mat-grid-tile *ngSwitchCase="'autocomplete'">
+                  <div [ngSwitch]="source.access">
+                    <div *ngSwitchCase="'Editable'">
+                      <app-my-test-auto
+                        [refId]="source.refId"
+                        [refCondition]="source.refCondition"
+                        [refTable]="source.refTable"
+                        [refColumn]="source.refColumn"
+                        [labelValue]="source.label"
+                        [initialValue]="source.value"
+                        (resultId)="onResults(source.tableColumnId, $event)"
+                      ></app-my-test-auto>
+                    </div>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile *ngSwitchCase="'dropdown'">
+                  <div [ngSwitch]="source.access">
+                    <div *ngSwitchCase="'Editable'">
+                      <mat-form-field appearance="fill">
                         <mat-label>{{ source.label }}</mat-label>
                         <mat-select
                           [(ngModel)]="+source.value"
                           (selectionChange)="onChange1($event.value, i)"
-                          [ngModelOptions]="{standalone: true}"
-                          
+                          [ngModelOptions]="{ standalone: true }"
                         >
                           <mat-option
                             *ngFor="let choice of source.myarray"
                             [value]="choice.id"
-                            
                           >
                             {{ choice.name }}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
-                      
-                    
-                  </div>
-  
-                  <div
-                    fxLayout
-                    fxLayoutGap="10px"
-                    *ngSwitchCase="'ViewOnly'"
-                    class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
-                  </div>
-                </div>
-              </mat-grid-tile>
-  
-              
-                <div *ngIf="spacezone">
-                  <mat-grid-tile *ngSwitchCase="'space'">
-                    <div [ngSwitch]="source.access">
-                      <div *ngSwitchCase="'Editable'" class="space"></div>
+                    </div>
+
                     <div
                       fxLayout
                       fxLayoutGap="10px"
@@ -981,18 +1005,39 @@
                       <h3>{{ source.label }}:</h3>
                       <h5>{{ source.value }}</h5>
                     </div>
+                  </div>
+                </mat-grid-tile>
+
+                <div *ngIf="spacezone">
+                  <mat-grid-tile *ngSwitchCase="'space'">
+                    <div [ngSwitch]="source.access">
+                      <div *ngSwitchCase="'Editable'" class="space"></div>
+                      <div
+                        fxLayout
+                        fxLayoutGap="10px"
+                        *ngSwitchCase="'ViewOnly'"
+                        class="radio"
+                      >
+                        <h3>{{ source.label }}:</h3>
+                        <h5>{{ source.value }}</h5>
+                      </div>
                     </div>
                   </mat-grid-tile>
                 </div>
-              
+              </div>
             </div>
-          </div>
-        </mat-grid-list>
-        <button mat-icon-button type="button" (click)="deleteFun2(i)">
-          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true" color="warn">
-            delete
-          </mat-icon>
-        </button>
+          </mat-grid-list>
+          <button mat-icon-button type="button" (click)="deleteFun2(i)">
+            <mat-icon
+              small
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              color="warn"
+            >
+              delete
+            </mat-icon>
+          </button>
         </mat-card>
       </div>
     </div>
@@ -1002,133 +1047,136 @@
         <button mat-raised-button color="primary" (click)="addChild3Item(0)" type="submit">Add deposite</button>
       </div> -->
       <div fxLayout="column" fxLayoutGap="10px" class="cardContainer">
-        <mat-card fxLayout="column" class="card" *ngFor="let sourceChild3 of last.child3;  let i = index" [attr.data-index]="i">
-          <mat-grid-list
-          [cols]="breakpoint"
-          rowHeight="100px"
-          (window:resize)="onResize($event)"
-          
+        <mat-card
+          fxLayout="column"
+          class="card"
+          *ngFor="let sourceChild3 of last.child3; let i = index"
+          [attr.data-index]="i"
         >
-          <div  *ngFor="let source of sourceChild3.records">
-            <div [ngSwitch]="source.type">
-              <mat-grid-tile *ngSwitchCase="'Date'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="date"
-                      placeholder="Date"
-                    />
-  
-  
-                  </mat-form-field>
-                  <div
-                  *ngSwitchCase="'ViewOnly'"
-                  fxLayout
-                  fxLayoutGap="10px"
-  
-                  class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+          <mat-grid-list
+            [cols]="breakpoint"
+            rowHeight="100px"
+            (window:resize)="onResize($event)"
+          >
+            <div *ngFor="let source of sourceChild3.records">
+              <div [ngSwitch]="source.type">
+                <mat-grid-tile *ngSwitchCase="'Date'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="date"
+                        placeholder="Date"
+                      />
+                    </mat-form-field>
+                    <div
+                      *ngSwitchCase="'ViewOnly'"
+                      fxLayout
+                      fxLayoutGap="10px"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-  
-                </div>
-  
-              </mat-grid-tile>
-              <mat-grid-tile *ngSwitchCase="'Number'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field  *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      
-                      name="amount"
-                      (input)="onAmountChange($event)"
-                     
-                      type="textbox"
-                    placeholder="Number"
-                    appIsDecimalDirective
-                    />
-    
-                    <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
-                  </mat-form-field>
-                  <mat-form-field  *ngSwitchCase="'NoAccess'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="number"
-                      
-                      
-                      placeholder="Number"
-                      
-                    />
-    
-                    <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
-                  </mat-form-field>
-                  <div
-                    fxLayout
-                    fxLayoutGap="10px"
-                    *ngSwitchCase="'ViewOnly'"
-                    class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+                </mat-grid-tile>
+                <mat-grid-tile *ngSwitchCase="'Number'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        name="amount"
+                        (input)="onAmountChange($event)"
+                        type="textbox"
+                        placeholder="Number"
+                        appIsDecimalDirective
+                      />
+
+                      <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
+                    </mat-form-field>
+                    <mat-form-field
+                      *ngSwitchCase="'NoAccess'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="number"
+                        placeholder="Number"
+                      />
+
+                      <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
+                    </mat-form-field>
+                    <div
+                      fxLayout
+                      fxLayoutGap="10px"
+                      *ngSwitchCase="'ViewOnly'"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-                </div>
-              </mat-grid-tile>
-  
-              <mat-grid-tile *ngSwitchCase="'Text'">
-                <div [ngSwitch]="source.access">
-                  <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      
-                      
-                      placeholder="Type some text"
-                    />
-    
-                    
-                  </mat-form-field>
-                  <mat-form-field *ngSwitchCase="'NoAccess'" appearance="outline">
-                    <mat-label>{{ source.label }}</mat-label>
-                    <input
-                      matInput
-                      [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
-                      type="text"
-                      minlength="{{ source.min }}"
-                      maxlength="{{ source.max }}}"
-                      #pwInput="ngModel"
-                      placeholder="Type some text"
-                    />
-    
-                    
-                  </mat-form-field>
-                  <div
-                    fxLayout
-                    fxLayoutGap="10px"
-                    *ngSwitchCase="'ViewOnly'"
-                    class="radio"
-                  >
-                    <h3>{{ source.label }}:</h3>
-                    <h5>{{ source.value }}</h5>
+                </mat-grid-tile>
+
+                <mat-grid-tile *ngSwitchCase="'Text'">
+                  <div [ngSwitch]="source.access">
+                    <mat-form-field
+                      *ngSwitchCase="'Editable'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        placeholder="Type some text"
+                      />
+                    </mat-form-field>
+                    <mat-form-field
+                      *ngSwitchCase="'NoAccess'"
+                      appearance="outline"
+                    >
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        minlength="{{ source.min }}"
+                        maxlength="{{ source.max }}}"
+                        #pwInput="ngModel"
+                        placeholder="Type some text"
+                      />
+                    </mat-form-field>
+                    <div
+                      fxLayout
+                      fxLayoutGap="10px"
+                      *ngSwitchCase="'ViewOnly'"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-                </div>
-              </mat-grid-tile>
-  
-              <!-- <mat-grid-tile *ngSwitchCase="'Checkbox'">
+                </mat-grid-tile>
+
+                <!-- <mat-grid-tile *ngSwitchCase="'Checkbox'">
                 <div [ngSwitch]="source.access">
                   <mat-checkbox
                   *ngSwitchCase="'Editable'"
@@ -1158,7 +1206,7 @@
                 </div>
                 </div>
               </mat-grid-tile> -->
-              <!-- <mat-grid-tile *ngSwitchCase="'Time'">
+                <!-- <mat-grid-tile *ngSwitchCase="'Time'">
                 <div [ngSwitch]="source.access">
                   <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
                     <input
@@ -1228,32 +1276,162 @@
                   </div>
                 </div>
               </mat-grid-tile> -->
-              <mat-grid-tile *ngSwitchCase="'dropdown'">
-                <div [ngSwitch]="source.access">
-                  <div *ngSwitchCase="'Editable'">
-                    
-                    
-                      <mat-form-field  appearance="fill">
+                <mat-grid-tile *ngSwitchCase="'autocomplete'">
+                  <div [ngSwitch]="source.access">
+                    <div *ngSwitchCase="'Editable'">
+                      <app-my-test-auto
+                        [refId]="source.refId"
+                        [refCondition]="source.refCondition"
+                        [refTable]="source.refTable"
+                        [refColumn]="source.refColumn"
+                        [labelValue]="source.label"
+                        [initialValue]="source.value"
+                        (resultId)="onResults(source.tableColumnId, $event)"
+                      ></app-my-test-auto>
+                    </div>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile *ngSwitchCase="'dropdown'">
+                  <div [ngSwitch]="source.access">
+                    <div *ngSwitchCase="'Editable'">
+                      <mat-form-field appearance="fill">
                         <mat-label>{{ source.label }}</mat-label>
                         <mat-select
                           [(ngModel)]="+source.value"
                           (selectionChange)="onChange1($event.value, i)"
-                          [ngModelOptions]="{standalone: true}"
-                          
+                          [ngModelOptions]="{ standalone: true }"
                         >
                           <mat-option
                             *ngFor="let choice of source.myarray"
                             [value]="choice.id"
-                            
                           >
                             {{ choice.name }}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
-                      
-                    
+                    </div>
+
+                    <div
+                      fxLayout
+                      fxLayoutGap="10px"
+                      *ngSwitchCase="'ViewOnly'"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
-  
+                </mat-grid-tile>
+
+                <div *ngIf="spacezone">
+                  <mat-grid-tile *ngSwitchCase="'space'">
+                    <div [ngSwitch]="source.access">
+                      <div *ngSwitchCase="'Editable'" class="space"></div>
+                      <div
+                        fxLayout
+                        fxLayoutGap="10px"
+                        *ngSwitchCase="'ViewOnly'"
+                        class="radio"
+                      >
+                        <h3>{{ source.label }}:</h3>
+                        <h5>{{ source.value }}</h5>
+                      </div>
+                    </div>
+                  </mat-grid-tile>
+                </div>
+              </div>
+            </div>
+          </mat-grid-list>
+          <button mat-icon-button type="button" (click)="deleteFun3(i)">
+            <mat-icon
+              small
+              class="mat-icon material-icons"
+              role="img"
+              aria-hidden="true"
+              color="warn"
+            >
+              delete
+            </mat-icon>
+          </button>
+        </mat-card>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="10px" class="cardContainer">
+      <mat-card
+        fxLayout="column"
+        class="card"
+        *ngFor="let sourceChild4 of last.child4; let i = index"
+        [attr.data-index]="i"
+      >
+        <mat-grid-list
+          [cols]="breakpoint"
+          rowHeight="140px"
+          (window:resize)="onResize($event)"
+        >
+          <div *ngFor="let source of sourceChild4.records">
+            <div [ngSwitch]="source.type">
+              <mat-grid-tile *ngSwitchCase="'Date'">
+                <div [ngSwitch]="source.access">
+                  <mat-form-field
+                    *ngSwitchCase="'Editable'"
+                    appearance="outline"
+                  >
+                    <mat-label>{{ source.label }}</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="source.value"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="date"
+                      placeholder="Date"
+                    />
+                  </mat-form-field>
+                  <div
+                    *ngSwitchCase="'ViewOnly'"
+                    fxLayout
+                    fxLayoutGap="10px"
+                    class="radio"
+                  >
+                    <h3>{{ source.label }}:</h3>
+                    <h5>{{ source.value }}</h5>
+                  </div>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile *ngSwitchCase="'Number'">
+                <div [ngSwitch]="source.access">
+                  <mat-form-field
+                    *ngSwitchCase="'Editable'"
+                    appearance="outline"
+                  >
+                    <mat-label>{{ source.label }}</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="source.value"
+                      [ngModelOptions]="{ standalone: true }"
+                      name="amount"
+                      (input)="onAmountChange($event)"
+                      type="textbox"
+                      placeholder="Number"
+                      appIsDecimalDirective
+                    />
+
+                    <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
+                  </mat-form-field>
+                  <mat-form-field
+                    *ngSwitchCase="'NoAccess'"
+                    appearance="outline"
+                  >
+                    <mat-label>{{ source.label }}</mat-label>
+                    <input
+                      matInput
+                      [(ngModel)]="source.value"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="number"
+                      placeholder="Number"
+                    />
+
+                    <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
+                  </mat-form-field>
                   <div
                     fxLayout
                     fxLayoutGap="10px"
@@ -1265,185 +1443,79 @@
                   </div>
                 </div>
               </mat-grid-tile>
-  
-              
-                <div *ngIf="spacezone">
-                  <mat-grid-tile *ngSwitchCase="'space'">
-                    <div [ngSwitch]="source.access">
-                      <div *ngSwitchCase="'Editable'" class="space"></div>
-                    <div
-                      fxLayout
-                      fxLayoutGap="10px"
-                      *ngSwitchCase="'ViewOnly'"
-                      class="radio"
+
+              <mat-grid-tile *ngSwitchCase="'Text'">
+                <div [ngSwitch]="source.access">
+                  <div *ngSwitchCase="'Editable'">
+                    <div *ngIf="source.tableColumnId == 370">
+                      <div class="img_profile">
+                        <img
+                          *ngIf="!showit"
+                          [src]="source.value"
+                          alt=""
+                          width="100px"
+                          height="100px"
+                        />
+                        <img
+                          *ngIf="showit"
+                          [src]="source.value"
+                          alt=""
+                          width="100px"
+                          height="100px"
+                        />
+                      </div>
+
+                      <div class="img_profile">
+                        <app-profile-upload
+                          [myFiles]="lFiles"
+                          (onUploadFinished)="uploadFinished($event, i)"
+                        >
+                        </app-profile-upload>
+                      </div>
+                    </div>
+                    <mat-form-field
+                      *ngIf="source.tableColumnId != 370"
+                      appearance="outline"
                     >
-                      <h3>{{ source.label }}:</h3>
-                      <h5>{{ source.value }}</h5>
-                    </div>
-                    </div>
-                  </mat-grid-tile>
-                </div>
-              
-            </div>
-          </div>
-        </mat-grid-list>
-        <button mat-icon-button type="button" (click)="deleteFun3(i)">
-          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true" color="warn">
-            delete
-          </mat-icon>
-        </button>
-        </mat-card>
-      </div>
-    </div>
-
-    
-    <div fxLayout="column" fxLayoutGap="10px" class="cardContainer">
-      <mat-card fxLayout="column" class="card" *ngFor="let sourceChild4 of last.child4;  let i = index" [attr.data-index]="i">
-        
-        <mat-grid-list
-        [cols]="breakpoint"
-        rowHeight="140px"
-        (window:resize)="onResize($event)"
-        
-      >
-      
-        <div  *ngFor="let source of sourceChild4.records">
-          <div [ngSwitch]="source.type">
-            <mat-grid-tile *ngSwitchCase="'Date'">
-              <div [ngSwitch]="source.access">
-                <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
-                  <mat-label>{{ source.label }}</mat-label>
-                  <input
-                    matInput
-                    [(ngModel)]="source.value"
-                    [ngModelOptions]="{standalone: true}"
-                    type="date"
-                    placeholder="Date"
-                  />
-
-
-                </mat-form-field>
-                <div
-                *ngSwitchCase="'ViewOnly'"
-                fxLayout
-                fxLayoutGap="10px"
-
-                class="radio"
-                >
-                  <h3>{{ source.label }}:</h3>
-                  <h5>{{ source.value }}</h5>
-                </div>
-
-              </div>
-
-            </mat-grid-tile>
-            <mat-grid-tile *ngSwitchCase="'Number'">
-              <div [ngSwitch]="source.access">
-                <mat-form-field  *ngSwitchCase="'Editable'" appearance="outline">
-                  <mat-label>{{ source.label }}</mat-label>
-                  <input
-                    matInput
-                    [(ngModel)]="source.value"
-                    [ngModelOptions]="{standalone: true}"
-                    
-                    name="amount"
-                    (input)="onAmountChange($event)"
-                    type="textbox"
-                    placeholder="Number"
-                    appIsDecimalDirective
-                  />
-  
-                  <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
-                </mat-form-field>
-                <mat-form-field  *ngSwitchCase="'NoAccess'" appearance="outline">
-                  <mat-label>{{ source.label }}</mat-label>
-                  <input
-                    matInput
-                    [(ngModel)]="source.value"
-                    [ngModelOptions]="{standalone: true}"
-                    type="number"
-                    
-                    
-                    placeholder="Number"
-                    
-                  />
-  
-                  <!-- <mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint> -->
-                </mat-form-field>
-                <div
-                  fxLayout
-                  fxLayoutGap="10px"
-                  *ngSwitchCase="'ViewOnly'"
-                  class="radio"
-                >
-                  <h3>{{ source.label }}:</h3>
-                  <h5>{{ source.value }}</h5>
-                </div>
-              </div>
-            </mat-grid-tile>
-
-            <mat-grid-tile *ngSwitchCase="'Text'">
-              <div [ngSwitch]="source.access">
-                <div *ngSwitchCase="'Editable'">
-                  <div *ngIf="source.tableColumnId == 370"  >
-                    <div class="img_profile" >
-    
-                      <img *ngIf="!showit" [src]="source.value"  alt="" width="100px" height="100px">
-                      <img *ngIf="showit" [src]="source.value"  alt="" width="100px" height="100px">
-                    </div>
-                    
-                  
-                    <div class="img_profile" >
-                      <app-profile-upload [myFiles]="lFiles" (onUploadFinished)="uploadFinished($event, i)"
-                            
-                            >
-                </app-profile-upload>
-                    
+                      <mat-label>{{ source.label }}</mat-label>
+                      <input
+                        matInput
+                        [(ngModel)]="source.value"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        placeholder="Type some text"
+                      />
+                    </mat-form-field>
                   </div>
-                  </div>
-                  <mat-form-field  *ngIf="source.tableColumnId != 370" appearance="outline">
+                  <mat-form-field
+                    *ngSwitchCase="'NoAccess'"
+                    appearance="outline"
+                  >
                     <mat-label>{{ source.label }}</mat-label>
                     <input
                       matInput
                       [(ngModel)]="source.value"
-                      [ngModelOptions]="{standalone: true}"
+                      [ngModelOptions]="{ standalone: true }"
                       type="text"
-                      
-                      
+                      minlength="{{ source.min }}"
+                      maxlength="{{ source.max }}}"
+                      #pwInput="ngModel"
                       placeholder="Type some text"
                     />
-    
-                    
                   </mat-form-field>
+                  <div
+                    fxLayout
+                    fxLayoutGap="10px"
+                    *ngSwitchCase="'ViewOnly'"
+                    class="radio"
+                  >
+                    <h3>{{ source.label }}:</h3>
+                    <h5>{{ source.value }}</h5>
+                  </div>
                 </div>
-                <mat-form-field *ngSwitchCase="'NoAccess'" appearance="outline">
-                  <mat-label>{{ source.label }}</mat-label>
-                  <input
-                    matInput
-                    [(ngModel)]="source.value"
-                    [ngModelOptions]="{standalone: true}"
-                    type="text"
-                    minlength="{{ source.min }}"
-                    maxlength="{{ source.max }}}"
-                    #pwInput="ngModel"
-                    placeholder="Type some text"
-                  />
-  
-                  
-                </mat-form-field>
-                <div
-                  fxLayout
-                  fxLayoutGap="10px"
-                  *ngSwitchCase="'ViewOnly'"
-                  class="radio"
-                >
-                  <h3>{{ source.label }}:</h3>
-                  <h5>{{ source.value }}</h5>
-                </div>
-              </div>
-            </mat-grid-tile>
+              </mat-grid-tile>
 
-            <!-- <mat-grid-tile *ngSwitchCase="'Checkbox'">
+              <!-- <mat-grid-tile *ngSwitchCase="'Checkbox'">
               <div [ngSwitch]="source.access">
                 <mat-checkbox
                 *ngSwitchCase="'Editable'"
@@ -1473,7 +1545,7 @@
               </div>
               </div>
             </mat-grid-tile> -->
-            <!-- <mat-grid-tile *ngSwitchCase="'Time'">
+              <!-- <mat-grid-tile *ngSwitchCase="'Time'">
               <div [ngSwitch]="source.access">
                 <mat-form-field *ngSwitchCase="'Editable'" appearance="outline">
                   <input
@@ -1543,49 +1615,41 @@
                 </div>
               </div>
             </mat-grid-tile> -->
-            <mat-grid-tile *ngSwitchCase="'dropdown'">
-              <div [ngSwitch]="source.access">
-                <div *ngSwitchCase="'Editable'">
-                  
-                  
-                    <mat-form-field  appearance="fill">
+              <mat-grid-tile *ngSwitchCase="'autocomplete'">
+                <div [ngSwitch]="source.access">
+                  <div *ngSwitchCase="'Editable'">
+                    <app-my-test-auto
+                      [refId]="source.refId"
+                      [refCondition]="source.refCondition"
+                      [refTable]="source.refTable"
+                      [refColumn]="source.refColumn"
+                      [labelValue]="source.label"
+                      [initialValue]="source.value"
+                      (resultId)="onResults(source.tableColumnId, $event)"
+                    ></app-my-test-auto>
+                  </div>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile *ngSwitchCase="'dropdown'">
+                <div [ngSwitch]="source.access">
+                  <div *ngSwitchCase="'Editable'">
+                    <mat-form-field appearance="fill">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
                         [(ngModel)]="+source.value"
                         (selectionChange)="onChange1($event.value, i)"
-                        [ngModelOptions]="{standalone: true}"
-                        
+                        [ngModelOptions]="{ standalone: true }"
                       >
                         <mat-option
                           *ngFor="let choice of source.myarray"
                           [value]="choice.id"
-                          
                         >
                           {{ choice.name }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    
-                  
-                </div>
+                  </div>
 
-                <div
-                  fxLayout
-                  fxLayoutGap="10px"
-                  *ngSwitchCase="'ViewOnly'"
-                  class="radio"
-                >
-                  <h3>{{ source.label }}:</h3>
-                  <h5>{{ source.value }}</h5>
-                </div>
-              </div>
-            </mat-grid-tile>
-
-            
-              <div *ngIf="spacezone">
-                <mat-grid-tile *ngSwitchCase="'space'">
-                  <div [ngSwitch]="source.access">
-                    <div *ngSwitchCase="'Editable'" class="space"></div>
                   <div
                     fxLayout
                     fxLayoutGap="10px"
@@ -1595,33 +1659,73 @@
                     <h3>{{ source.label }}:</h3>
                     <h5>{{ source.value }}</h5>
                   </div>
+                </div>
+              </mat-grid-tile>
+
+              <div *ngIf="spacezone">
+                <mat-grid-tile *ngSwitchCase="'space'">
+                  <div [ngSwitch]="source.access">
+                    <div *ngSwitchCase="'Editable'" class="space"></div>
+                    <div
+                      fxLayout
+                      fxLayoutGap="10px"
+                      *ngSwitchCase="'ViewOnly'"
+                      class="radio"
+                    >
+                      <h3>{{ source.label }}:</h3>
+                      <h5>{{ source.value }}</h5>
+                    </div>
                   </div>
                 </mat-grid-tile>
               </div>
-            
+            </div>
           </div>
-        </div>
-      </mat-grid-list>
-      <button mat-icon-button type="button" (click)="deleteFun4(i)">
-        <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true" color="warn">
-          delete
-        </mat-icon>
-      </button>
-     
-        
+        </mat-grid-list>
+        <button mat-icon-button type="button" (click)="deleteFun4(i)">
+          <mat-icon
+            small
+            class="mat-icon material-icons"
+            role="img"
+            aria-hidden="true"
+            color="warn"
+          >
+            delete
+          </mat-icon>
+        </button>
       </mat-card>
     </div>
     <div class="btn-container">
-      <button mat-raised-button class="add_btn" color="primary" (click)="addChild4Item(0)" type="submit">+ Add attachment</button>
+      <button
+        mat-raised-button
+        class="add_btn"
+        color="primary"
+        (click)="addChild4Item(0)"
+        type="submit"
+      >
+        + Add attachment
+      </button>
     </div>
-    
   </form>
   <div class="btn-container2">
     <!-- <h4>{{ subTotal }}</h4> -->
-    <button class="BtnC" (click)="onCancel()" mat-button color="warn" type="submit">{{cancel}}</button>
-    <button class="BtnS" (click)="onSubmit()" mat-button color="primary" type="submit">{{submit}}</button>
+    <button
+      class="BtnC"
+      (click)="onCancel()"
+      mat-button
+      color="warn"
+      type="submit"
+    >
+      {{ cancel }}
+    </button>
+    <button
+      class="BtnS"
+      (click)="onSubmit()"
+      mat-button
+      color="primary"
+      type="submit"
+    >
+      {{ submit }}
+    </button>
     <!-- <h4>{{ total }}</h4> -->
   </div>
 </section>
-
-

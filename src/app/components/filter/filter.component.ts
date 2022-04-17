@@ -32,6 +32,26 @@ export class FilterComponent implements OnInit {
     // this.role = this._auth.getRole();
   }
 
+  // onResults(id:number, e:any) {
+  //     console.log('ee',e);
+      
+  //     this.light.forEach((res:any) => {
+  //       if (res.tableColumnId === id) {
+  //         console.log('ee', e);
+          
+  //         res.value = e.toString()
+  //         // if(res.tableColumnId === 605) {
+  //         //   this.onDiscountChange(res.value)
+  //         // }else if(res.tableColumnId === 607) {
+  //         //   this.onChangeValueC(res.value)
+  //         // }else if(res.tableColumnId === 608) {
+  //         //   this.onChangeCurrency(res.value)
+  //         // }
+          
+  //       }
+  //     })
+  //   }
+  
   onSubmit() {
     this.filter.parentVehicle.refreshMe();
   }

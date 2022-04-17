@@ -1269,6 +1269,41 @@ export class PaymentToCompanyEntryComponent implements OnInit {
     //   }
     // }
 
+    onResults(id:number, e:any) {
+      console.log('ee',e);
+      
+      this.light.forEach((res:any) => {
+        if (res.tableColumnId === id) {
+          console.log('ee', e);
+          
+          res.value = e.toString()
+          if(res.tableColumnId === 303) {
+            this.onChangePaymentType(res.value)
+          }else if(res.tableColumnId === 307) {
+            this.onChangePaymentAganist(res.value)
+          }else if(res.tableColumnId === 310) {
+            this.onChangeValueC(res.value)
+          }
+          
+        }
+      })
+    }
+    onResultsChild1(id:number, e:any, i:number) {
+      console.log('ee',e);
+      
+      this.lastDark.child1[i].forEach((res:any) => {
+        if (res.tableColumnId === id) {
+          console.log('ee', e);
+          
+          res.value = e.toString()
+          if(res.tableColumnId === 303) {
+            this.onChange1(res.value, i)
+          }
+          
+        }
+      })
+    }
+
     
 
       onSubmit () {

@@ -21,11 +21,12 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { FilterService } from 'src/app/components/filter/filter.service';
 import { AlertifyService } from 'src/app/alertify.service';
 import { DeleteModel } from '../invoice/invoice.model';
-import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.component';
-import { MyFilterComponent } from '../../journalentry/operation/my-filter/my-filter.component';
-import { CheckfordeleteComponent } from '../../journalentry/operation/checkfordelete/checkfordelete.component';
+
 import { CheckforstateComp2Component } from './statecheck/checkfordelete.component';
 import { Direction } from '@angular/cdk/bidi';
+import { MySortComponent } from '../invoice/operation/my-sort/my-sort.component';
+import { CheckfordeleteComponent } from '../invoice/operation/checkfordelete/checkfordelete.component';
+import { MyFilterComponent } from '../invoice/operation/my-filter/my-filter.component';
 
 @Component({
     selector: 'app-paymenttocompany',
