@@ -37,6 +37,7 @@ export class SystemNavigationComponent implements OnInit {
   proInv!: string;
   proExpenseList!: string;
   invoice!: string;
+  invoiceM!: string;
   bank!: string;
   bankBranch!: string;
   bankAccount!: string;
@@ -109,6 +110,7 @@ ngOnInit(): void {
       this.bank = "Bank"
       this.profile = "Profile"
       this.invoice = "Invoice"
+      this.invoiceM = "Invoice (cubic meter)"
       this.bankBranch = "Bank branch"
       this.proExpense = "Procurement expenses"
       this.proInv = "Purchase invoice"
@@ -273,6 +275,12 @@ ngOnInit(): void {
     this.key = 0
     this.navigation = "Invoice"
     this.onClickListItem('I')
+    localStorage.setItem(this._globals.baseAppName + '_nav', this.navigation)
+  }
+  else if(localStorage.getItem(this._globals.baseAppName + '_nav') == "InvoiceM") {
+    this.key = 0
+    this.navigation = "InvoiceM"
+    this.onClickListItem('IM')
     localStorage.setItem(this._globals.baseAppName + '_nav', this.navigation)
   }else if(localStorage.getItem(this._globals.baseAppName + '_nav') == "PaymentFromCompany") {
     this.key = 0
@@ -546,6 +554,10 @@ onToggle() {
       this.navigation = "Invoice"
       localStorage.setItem(this._globals.baseAppName + '_nav', this.navigation);
       console.log("Expense entry clicked", this.navigation);
+    }else if(event == 'IM' ) {
+      this.navigation = "InvoiceM"
+      localStorage.setItem(this._globals.baseAppName + '_nav', this.navigation);
+      console.log("Expense entry clicked", this.navigation);
     }else if(event == 'FY' ) {
       this.navigation = "FiscalYear"
       localStorage.setItem(this._globals.baseAppName + '_nav', this.navigation);
@@ -651,6 +663,7 @@ onToggle() {
       this.paymentToCompany = "Customer payment"
       this.tax = "Tax"
       this.invoice = "Invoice"
+      this.invoiceM = "Invoice (cubic meter)"
       this.bank = "Bank"
       this.fym = "Financial year management"
       this.purchase = "Purchase"
@@ -705,6 +718,7 @@ onToggle() {
       this.businessP = "حساب الشركة"
       this.journal = "السجلات"
       this.invoice = "الفواتير"
+      this.invoiceM = "الفواتير (المتر المربع)"
       this.bank = "البنك"
       this.reports = "التقارير"
       this.paymentFromCompany = "الدفع الى الممول"
@@ -759,6 +773,7 @@ onToggle() {
       this.businessP = "Business Profile"
       this.journal = "journal"
       this.invoice = "Invoice"
+      this.invoiceM = "Invoice (cubic meter)"
       this.paymentFromCompany = "Company payment"
       this.paymentToCompany = "Customer payment"
       this.expense = "Expenses"

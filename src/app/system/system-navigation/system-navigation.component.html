@@ -68,6 +68,8 @@
         
         <li *ngIf="role === '5' || role === '2' || role === '9' || role === '10'" (click)="onClickListItem('I')" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoice}}</div></li>
   
+        <li *ngIf="role === '2'" (click)="onClickListItem('IM')" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoiceM}}</div></li>
+  
         <li *ngIf="role === '5' || role === '2' || role === '9'" (click)="onClickListItem('PTC')" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentToCompany}}</div></li>
         <li *ngIf="role === '5' || role === '2' || role === '9'" (click)="onClickListItem('PFC')" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentFromCompany}}</div></li>
         <li *ngIf="role === '5' || role === '2'" (click)="onClickListItem('CTC')" class="side_list_item"><i class="fas fa-money-check-alt"></i><div class="title">{{cheque}}</div></li>
@@ -178,10 +180,10 @@
               <i class="fas fa-globe"></i>
               <span class="settingsOtp">{{lang}}</span>
             </button>
-            <button class="icon" (click)="onClickListItem('BP')" mat-menu-item>
+            <!-- <button class="icon" (click)="onClickListItem('BP')" mat-menu-item>
               <i class="fas fa-user"></i>
               <span class="settingsOtp">{{profile}}</span>
-            </button>
+            </button> -->
             <button class="icon" (click)="onSignOut()" mat-menu-item>
               <i class="fas fa-sign-out-alt"></i>
               <span class="settingsOtp">{{logout}}</span>
@@ -355,6 +357,9 @@
             </div>
             <div *ngSwitchCase="'Invoice'">
               <app-invoice></app-invoice>
+            </div>
+            <div *ngSwitchCase="'InvoiceM'">
+              <app-invoicem></app-invoicem>
             </div>
             <div *ngSwitchCase="'PaymentFromCompany'">
               <app-paymentfrom2company></app-paymentfrom2company>

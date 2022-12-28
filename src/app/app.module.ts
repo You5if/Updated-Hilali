@@ -280,6 +280,8 @@ import { CheckforstateCompComponent } from "./system/AnotherComponents/paymentto
 import { CheckforsubmitComponent } from "./system/AnotherComponents/paymenttocompany/submitcheck/checkfordelete.component";
 import { CheckforstateComponent } from "./system/journalentry/operation/statecheck/checkfordelete.component";
 import { MyTestAutoComponent } from "./system/my-test-auto/my-test-auto.component";
+import { InvoiceMeterEntryComponent } from "./system/AnotherComponents/invoice meteric/invoice-entry/invoice-entry.component";
+import { InvoiceMeterComponent } from "./system/AnotherComponents/invoice meteric/invoice.component";
 
 
 
@@ -557,6 +559,8 @@ export const jwtConfig = {
     ChequeFromCompanyEntryComponent,
     Checkforpass2Component,
     MyTestAutoComponent,
+    InvoiceMeterComponent,
+    InvoiceMeterEntryComponent
     
 
 
@@ -735,7 +739,8 @@ export const jwtConfig = {
     Movetobank2Component,
     ChequeFromCompanyEntryComponent,
     Checkforpass2Component,
-    MyTestAutoComponent
+    MyTestAutoComponent,
+    InvoiceMeterEntryComponent
   ]
 })
 export class AppModule {}

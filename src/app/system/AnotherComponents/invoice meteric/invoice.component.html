@@ -11,8 +11,8 @@
       <button class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon>add</mat-icon></button>
       <div class="chImg" *ngIf="pageData.sort === ''" (click)="onMySort()"><img class="sfimg" src="../../../../assets/images/svg/sort (3).png" alt=""></div>
       <div class="chImg" *ngIf="pageData.sort != ''" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
-      <div class="chImg" *ngIf="pageData.filter === ''" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
-      <div class="chImg" *ngIf="pageData.filter != ''" (click)="onClearFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol (2).png" alt=""></div>
+      <div class="chImg" *ngIf="pageData.filter === fVal" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
+      <div class="chImg" *ngIf="pageData.filter != fVal" (click)="onClearFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol (2).png" alt=""></div>
       <!-- <button mat-button color="primary" (click)="openEntry()">Filter</button>
       <button mat-button color="primary" (click)="onSort()">Sort</button>
       <button mat-button color="primary" (click)="openEntry()" [disabled]="!screenRights.printFlag">Print</button>
