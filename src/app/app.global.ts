@@ -9,9 +9,12 @@ export class AppGlobals {
 
   
   /* Development Server */
-  readonly baseDomainUrl: string = "qualityhouse.auto-paymcs.com";
-  readonly baseAppUrl: string = "http://qualityhouse.auto-paymcs.com/";
-  readonly baseLandingAppUrl: string = "http://qualityhouse.auto-paymcs.com/";
+  // readonly baseDomainUrl: string = "qualityhouse.auto-paymcs.com";
+  readonly baseDomainUrl: string = "http://49.50.77.201/qualityhouse/";
+  // readonly baseAppUrl: string = "http://qualityhouse.auto-paymcs.com/";
+  readonly baseAppUrl: string = "http://49.50.77.201/qualityhouse/";
+  // readonly baseLandingAppUrl: string = "http://qualityhouse.auto-paymcs.com/";
+ readonly baseLandingAppUrl: string = "http://49.50.77.201/qualityhouse/";
 
   /* Live Server */
   // readonly baseDomainUrl: string = "aladdinshipping.com";
@@ -24,9 +27,12 @@ export class AppGlobals {
   //   readonly baseAPIRootUrl: string = 'https://localhost:44377/api/';
 
   /* Development Server */
-  readonly baseAPIFileUrl: string = "http://hilalierpapi.autopay-mcs.com/";
-  readonly baseAPIUrl: string = "http://hilalierpapi.autopay-mcs.com/api/";
-  readonly baseAPIRootUrl: string = "http://hilalierpapi.autopay-mcs.com/api/";
+  readonly baseAPIFileUrl: string = "http://49.50.77.201/hilalierpapi/";
+  readonly baseAPIUrl: string = "http://49.50.77.201/hilalierpapi/api/";
+  readonly baseAPIRootUrl: string = "http://49.50.77.201/hilalierpapi/api/";
+  // readonly baseAPIFileUrl: string = "http://hilalierpapi.autopay-mcs.com/";
+  // readonly baseAPIUrl: string = "http://hilalierpapi.autopay-mcs.com/api/";
+  // readonly baseAPIRootUrl: string = "http://hilalierpapi.autopay-mcs.com/api/";
 
   /* Live Server */
   // readonly baseAPIFileUrl: string = "https://appapi.aladdinshipping.com/";
@@ -35,8 +41,10 @@ export class AppGlobals {
 
   /* Development Server */
   // readonly baseReportUrl: string = 'http://shippingreports.autopay-mcs.com/default.aspx?';
-  readonly baseReportUrl: string = 'http://hilalierpreports.autopay-mcs.com/default.aspx?';
-  readonly baseReportEmailUrl: string = 'http://shippingreports.autopay-mcs.com/default2.aspx?';
+  readonly baseReportUrl: string = 'http://49.50.77.201/hilalierpreports/default.aspx?';
+  readonly baseReportEmailUrl: string = 'http://49.50.77.201/shippingreports/default2.aspx?';
+  // readonly baseReportUrl: string = 'http://hilalierpreports.autopay-mcs.com/default.aspx?';
+  // readonly baseReportEmailUrl: string = 'http://shippingreports.autopay-mcs.com/default2.aspx?';
 
   /* Live Server */
   // readonly baseReportUrl: string =
