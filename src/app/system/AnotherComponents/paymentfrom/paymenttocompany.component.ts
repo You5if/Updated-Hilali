@@ -29,7 +29,7 @@ import { CheckfordeleteComponent } from '../invoice/operation/checkfordelete/che
 import { MyFilterComponent } from '../invoice/operation/my-filter/my-filter.component';
 
 @Component({
-    selector: 'app-paymenttocompany',
+    selector: 'app-paymentfromcompany',
     templateUrl: './paymenttocompany.component.html',
     styleUrls: ['./paymenttocompany.component.scss']
   })
@@ -37,7 +37,14 @@ import { MyFilterComponent } from '../invoice/operation/my-filter/my-filter.comp
 export class PaymentfromComponent implements OnInit {
 
   idS! : number;
+  workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
   direction!: Direction;
+  headerToShow: any[] = []
   customerCode!: string;
   customerName!: string;
   customerMobile!: string;
@@ -126,7 +133,13 @@ export class PaymentfromComponent implements OnInit {
 
     }
     
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Expense"
       this.paymentCode = "Payment code"
@@ -174,6 +187,12 @@ export class PaymentfromComponent implements OnInit {
     this._cf.getPageData('PaymentFromCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
           this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
@@ -223,21 +242,27 @@ dialogRef.afterClosed().subscribe(() => {
 });
 };
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
@@ -324,9 +349,9 @@ onMyFilter  () {
       recordId: 0,
       userId: this._auth.getUserId(),
       roleId: Number(this.role),
-      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add expense");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة مصروف");
@@ -355,7 +380,7 @@ onMyFilter  () {
         roleId: Number(this.role),
         languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
       };
-      if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+          if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
         localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit expense");
         localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
       }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {

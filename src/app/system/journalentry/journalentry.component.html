@@ -6,13 +6,22 @@
       {{header}}
     </section>
 
-    <section class="sec">
+    <section class="sec"  >
 
-      <button class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon >add</mat-icon></button>
-      <div class="chImg" (click)="onMySort()"><img class="sfimg" src="../../../../assets/images/svg/sort (3).png" alt=""></div>
-      <div class="chImg" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
-      <div class="chImg" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
-      <div class="chImg" (click)="onClearFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol (2).png" alt=""></div>
+      <button *ngIf="!workShimmerBtn || !workShimmerCardBtn" class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon >add</mat-icon></button>
+ 
+        <ngx-skeleton-loader fxHide.xs *ngIf="workShimmerBtn" class="skeleton" count="1" appearance="circle" [theme]="{ 
+          'border-radius': '5px',
+          height: '37px',
+          width: '60px',
+          border: '1px solid white'
+        }"></ngx-skeleton-loader>
+      <div *ngIf="!workShimmerBtn || !workShimmerCardBtn" fxLayout fxLayoutGap="5px">
+        <div *ngIf="pageData.sort === ''" class="chImg" (click)="onMySort()"><img class="sfimg" src="../../../../assets/images/svg/sort (3).png" alt=""></div>
+      <div *ngIf="pageData.sort != ''" class="chImg" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
+      <div *ngIf="pageData.filter === ''" class="chImg" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
+      <div *ngIf="pageData.filter != ''" class="chImg" (click)="onClearFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol (2).png" alt=""></div>
+      </div>
       <!-- <button mat-button color="primary" (click)="openEntry()">Filter</button>
       <button mat-button color="primary" (click)="onSort()">Sort</button>
       <button mat-button color="primary" (click)="openEntry()" [disabled]="!screenRights.printFlag">Print</button>
@@ -37,24 +46,69 @@
 </mat-toolbar>
 
 <!-- <Section [ngClass]="['custom-table-container']"> -->
-<Section [dir]="direction" fxHide.xs class="toolSection" mat-elevation-z8>
+  
+  
+<div  class="shimmerEffect" fxHide.gt-xs>
+  <div *ngIf="workShimmerCardBtn" class="itemRow">
+    <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '37px',
+      width: '300px',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
+  <div *ngIf="workShimmerCard" class="itemRow">
+    <ngx-skeleton-loader count="2" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '200px',
+      width: '450px',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
 
-  <mat-table #table [dataSource]="dataSource"  style="width: 100%">
+<div *ngIf="workShimmerPaginator" class="itemRow">
+  <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+    'border-radius': '5px',
+    height: '50px',
+    width: '300px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</div>
 
-    <ng-container matColumnDef="select">
-      <mat-header-cell class="cbPad"  *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-        [checked]="selection.hasValue() && isAllSelected()"
-        [indeterminate]="selection.hasValue() && !isAllSelected()">
-</mat-checkbox>
-      </mat-header-cell>
-       <mat-cell class="cbPad" *matCellDef="let row; let i = index">
-        <mat-checkbox  (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null; onId(i,row)"
-                    [checked]="selection.isSelected(row)">
-      </mat-checkbox>
+</div>
+<Section  [dir]="direction" fxHide.xs  class="mainSection">
 
-      </mat-cell>
+  <div class="tableHeader" *ngIf="!workShimmerHeader">
+    <div *ngFor="let header of headerToShow" class="tableHeaderItem">{{header}}</div>
+  </div>
+  <div *ngIf="workShimmerHeader" class="item">
+    <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '50px',
+      width: '100%',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
+
+<div  class="toolSection" *ngIf="!workShimmerTable">
+    <mat-table  #table [dataSource]="dataSource"  style="width: 100%">
+
+      <!-- Columns definition here to be displayed -->
+  
+      <ng-container matColumnDef="select">
+        <mat-header-cell class="cbPad"  *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
+  </mat-checkbox>
+        </mat-header-cell>
+         <mat-cell class="cbPad" *matCellDef="let row; let i = index">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null; onId(i,row)"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+  
+        </mat-cell>
 
   </ng-container>
     <ng-container matColumnDef="code">      <mat-header-cell class="centH" *matHeaderCellDef>{{ code }}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.journalCode}}</mat-cell>
@@ -125,16 +179,25 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <!-- <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row> -->
     
 
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.journalEntryId, row.recordAuthor)" class="{{row.recordState === 2 && row.recordAuthor === 2203 ? 'rowRR' : row.recordState === 2 && row.recordAuthor === 2202 ? 'rowRY' : row.recordState === 3 && row.recordAuthor === 2201 ? 'rowRG': row.recordState === 3 && row.recordAuthor === 2202 ? 'rowRG' : 'rowR'}}"   [class.active]="clickedRows.has(row)" ></mat-row>
 
   </mat-table>
+</div>
+
+<div *ngIf="workShimmerTable" class="item">
+  <ngx-skeleton-loader count="1" appearance="line" [theme]="{ 
+    'border-radius': '5px',
+    height: '340px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</div>
 
 </Section>
 
-<section [dir]="direction" class="cards_section" fxHide.gt-xs>
+<section *ngIf="!workShimmerCard" [dir]="direction" class="cards_section" fxHide fxShow.xs>
   <div *ngFor="let index of indexes">
     <mat-card fxLayout class="card">
       <div>
@@ -184,10 +247,20 @@
 </section>
 
 
-<div class="paginator"  >
-  <mat-paginator dir="ltr"  [length]="totalRecords" [pageSize]="recordsPerPage" [pageSizeOptions]="pageSizeOptions"
+<div class="paginator">
+  <mat-paginator *ngIf="!workShimmerPaginator" [hidePageSize]="true" [length]="totalRecords" [pageSize]="recordsPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="paginatoryOperation($event)" showFirstLastButtons>
 </mat-paginator>
+
+
 </div>
-<!-- [dir]="ltr" -->
+<div *ngIf="workShimmerPaginator" class="itemRow2">
+  <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+    'border-radius': '5px',
+    height: '50px',
+    width: '500px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</div>
+
 

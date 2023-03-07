@@ -5,6 +5,71 @@ mat-drawer-content {
   background: #ffffff;
   height: 100%;
 }
+mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+mat-accordion {
+  color: white;
+  background: #2E2A26;
+  border-radius: 0;
+}
+mat-accordion:hover {
+  color: white;
+  background: #77736f;
+
+}
+mat-expansion-panel {
+  color: white;
+  background: #2E2A26;
+  border-radius: 0;
+}
+mat-expansion-panel:hover {
+  .exTitle {
+    width: 150px;
+    margin-left: 10px;
+    font-weight: bold;
+    white-space: unset;
+      text-overflow: unset;
+      overflow: unset;
+  }
+}
+::ng-deep.mat-expansion-panel-body {
+  padding: 0 !important;
+  padding-bottom: 16px !important;
+}
+mat-panel-title {
+  color: white;
+ 
+}
+.exTitle {
+  width: 150px;
+  font-size: 14px !important;
+  margin-left: 10px;
+  font-weight: bold;
+  white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+::ng-deep.mat-expansion-indicator::after {
+  color: white;
+}
+
+::ng-deep.mat-expansion-indicator::after {
+  transform: rotate(135deg) !important;  
+}
+// ::ng-deep.mat-expansion-indicator {
+//   transform: rotate(-90deg) !important;  
+// }
+mat-expansion-panel-header {
+  color: white;
+  background: #2E2A26;
+  border-radius: 0;
+  padding: 0;
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+}
 
 .logo_container {
   display: flex;
@@ -14,16 +79,23 @@ mat-drawer-content {
   font-size: 30px;
 }
 
-.settingsOtp {
+// .fa-globe,
+// .fa-user,
+// .fa-sign-out-alt {
+//   margin: 0 3px;
+// }
+
+.logout {
   margin: 0 10px;
 }
+
 .sideCard {
   overflow: hidden;
-  background: #2c3e50;
+  background: #2E2A26;
   overflow-y: scroll;
 }
 .sideCard::-webkit-scrollbar {
-  width: 3px;
+  width: 5px;
 }
 .sideCard::-webkit-scrollbar-thumb {
   border-radius: 50px;
@@ -34,9 +106,13 @@ mat-drawer-content {
 .user {
   width: 100%;
   display: flex;
-  margin-left: 40px;
+  // margin-left: 10px;
+  flex-direction: row !important;
+  // flex-direction: column;
   justify-content: center;
+  color: #ffffff;
   cursor: pointer;
+  align-items: center;
 }
 
 .markon_logo {
@@ -45,9 +121,10 @@ mat-drawer-content {
   align-items: center;
   flex-direction: row;
   position: absolute;
+  cursor: pointer;
   width: 100%;
   height: 70px;
-  background: #2c3e50;
+  background: #2E2A26;
   bottom: 0;
 }
 
@@ -96,8 +173,6 @@ mat-drawer-content {
 .fon {
   font-size: 18px !important;
   font-weight: bold;
-  margin: 0;
-  text-align: center;
 }
 
 .example-card {
@@ -123,9 +198,9 @@ mat-drawer-content {
 }
 
 .example-sidenav {
-  padding: 20px 0px 20px 0;
-  background: #2c3e50;
-  width: 200px;
+  padding: 20px 5px 20px 0;
+  background: #2E2A26;
+  width: 240px;
 
   max-width: 400px;
   min-width: 180px;
@@ -133,8 +208,23 @@ mat-drawer-content {
   outline: none;
 }
 .user_img {
-  width: 70px;
-  height: 70px;
+  width: 45px;
+  height: 45px;
+  margin-right: 7px;
+  background: white;
+  border-radius: 7px;
+}
+.nameFont {
+  white-space: nowrap; 
+  width: 120px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  font-size: 16px !important;
+  margin: 0;
+  margin-bottom: 5px;
+}
+.nameFont2 {
+  font-size: 12px !important;
 }
 .search_container {
   position: relative;
@@ -270,7 +360,7 @@ mat-drawer-content {
 }
 
 .actions_box::-webkit-scrollbar {
-  width: 3px;
+  width: 5px;
 }
 .actions_box::-webkit-scrollbar-thumb {
   border-radius: 50px;
@@ -284,16 +374,24 @@ mat-drawer-content {
 .menu_item {
   overflow: hidden;
   overflow-y: scroll;
-  height: 500px;
+  height: 460px;
 }
 
 .menu_item::-webkit-scrollbar {
-  width: 3px;
+  width: 5px;
+  cursor: pointer;
 }
 .menu_item::-webkit-scrollbar-thumb {
   border-radius: 50px;
-
+  background-color: none;
+  cursor: pointer;
+  
+}
+.menu_item::-webkit-scrollbar-thumb:hover {
+  border-radius: 50px;
   background-color: gray;
+  cursor: pointer;
+  
 }
 
 hr {
@@ -301,12 +399,12 @@ hr {
 }
 
 .side_list .side_list_item {
-  padding: 10px 10px 10px 10px;
-  width: 100%;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
+  padding: 10px 10px 10px 20px;
+    width: 80%;
+    margin: 0 10px 0 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 .side_list_item2 {
   padding: 0 10px;
@@ -326,7 +424,7 @@ hr {
 }
 
 .main_title {
-  margin: 10px 0px 10px 0px;
+  margin: 10px 10px 10px 10px;
   font-size: 18px !important;
   padding-right: 20px;
   display: flex;
@@ -344,7 +442,12 @@ hr {
 }
 
 .side_list li:hover {
-  background: #34495e;
+  background: #645c53;
+  border-radius: 5px;
+}
+.is-active {
+  background: #645c53;
+  border-radius: 5px;
 }
 
 // .side_list_item_link {

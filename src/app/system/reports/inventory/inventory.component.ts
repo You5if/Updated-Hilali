@@ -85,7 +85,7 @@ export class InventoryComponent implements OnInit {
     const reportId:number = 15
   
     this._report.passReportData({ reportId: reportId}); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
   onFetch() { 
     const reportId:number = 14
@@ -95,7 +95,7 @@ export class InventoryComponent implements OnInit {
     restOfUrl = 'productid=' + this.productId; 
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
   // onProfile() { 
   //   const reportId:number = 14
@@ -105,7 +105,7 @@ export class InventoryComponent implements OnInit {
   //   restOfUrl = 'productid=' + this.customerId; 
   //   console.log(restOfUrl)
   //   this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-  //   this._nav.onClickListItem('FRP');
+  //   //this._nav.onClickListItem('FRP');
   // }
 
   onChangeCustomer(id: number) {

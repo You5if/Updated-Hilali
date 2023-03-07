@@ -30,7 +30,14 @@ import { Direction } from '@angular/cdk/bidi';
 
 export class ProductComponent implements OnInit {
   idS! : number;
+  workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
   direction!: Direction;
+  headerToShow: any[] = []
   productCode!: string;
   productName!: string;
   productCategoryId!: string;
@@ -45,7 +52,7 @@ export class ProductComponent implements OnInit {
     
 
     displayedColumns: string[] =
-        ['select','ProductCategoryId', 'ProductGroupId','ProductCode', 'ProductName'];
+        ['ProductCategoryId', 'ProductGroupId','ProductCode', 'ProductName'];
 
     dataSource: any;
     isLastPage = false;
@@ -95,21 +102,29 @@ export class ProductComponent implements OnInit {
       }
 
   ngOnInit() {
-    this.titleService.setTitle("Product - Elhelali");
+    this.titleService.setTitle("Item - Elhelali");
       this.refreshMe();
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
-      this.header = "Product"
-      this.productCode = "Product code"
-      this.productName = "Product name"
+      this.header = "Item"
+      this.productCode = "Item code"
+      this.productName = "Item name"
       this.productCategoryId = "Category name"
       this.productGroupId = "Group name"
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
+      this.headerToShow = [this.productCategoryId, this.productGroupId,this.productCode, this.productName]
+
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.header = "المنتجات"
@@ -120,10 +135,17 @@ export class ProductComponent implements OnInit {
       this.edit = "تعديل"
       this.submit = "ارسال"
       this.cancel = "الغاء"
+      this.headerToShow = [this.productCategoryId, this.productGroupId,this.productCode, this.productName]
     }
     this._cf.getPageData('Product', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
           this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
@@ -151,21 +173,27 @@ export class ProductComponent implements OnInit {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
@@ -184,10 +212,10 @@ export class ProductComponent implements OnInit {
       recordId: 0,
       userId: 26,
       roleId: 2,
-      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add product");
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add item");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة منتج");
     }
@@ -211,10 +239,10 @@ export class ProductComponent implements OnInit {
       recordId: id,
       userId: 26,
       roleId: 2,
-      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit product");
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit item");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل منتج");
     }

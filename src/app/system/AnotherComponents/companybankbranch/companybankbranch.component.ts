@@ -30,7 +30,14 @@ import { Direction } from '@angular/cdk/bidi';
 export class CompanyBankBranchComponent implements OnInit {
 
   idS! : number;
+  workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
   direction!: Direction;
+  headerToShow: any[] = []
   customerCode!: string;
   customerName!: string;
   customerMobile!: string;
@@ -49,7 +56,7 @@ export class CompanyBankBranchComponent implements OnInit {
   clickedRows = new Set<CompanyBankBranchModel>();
   
     displayedColumns: string[] =
-        ['select','CompanyBankId', 'BranchName', 'BranchAddress'];
+        ['CompanyBankId', 'BranchName', 'BranchAddress'];
 
     dataSource: any;
     isLastPage = false;
@@ -103,7 +110,13 @@ export class CompanyBankBranchComponent implements OnInit {
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Bank branch"
       this.companyBank = "Bank name"
@@ -113,7 +126,7 @@ export class CompanyBankBranchComponent implements OnInit {
     //  this.amount = "Amount"
     //  this.statusT = "Status"
       this.edit = "Edit"
-      
+      this.headerToShow = [this.companyBank, this.branchName, this.branchAddress]
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.header = "فرع البنك"
@@ -124,11 +137,19 @@ export class CompanyBankBranchComponent implements OnInit {
     //  this.amount = "المبلغ"
     //  this.statusT = "الحالة"
       this.edit = "تعديل"
+      this.headerToShow = [this.companyBank, this.branchName, this.branchAddress]
+
       
     }
     this._cf.getPageData('CompanyBankBranch', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
           this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
@@ -156,21 +177,27 @@ export class CompanyBankBranchComponent implements OnInit {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
@@ -191,7 +218,7 @@ export class CompanyBankBranchComponent implements OnInit {
       roleId: 2,
       languageId:  Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add branch");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة فرع");
@@ -218,7 +245,7 @@ export class CompanyBankBranchComponent implements OnInit {
       roleId: 2,
       languageId:  Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit branch");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل فرع");

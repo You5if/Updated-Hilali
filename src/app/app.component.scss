@@ -5,3 +5,7 @@ mat-sidenav-container {
 mat-sidenav-content {
   overflow: hidden;
 }
+
+::ng-deep .mat-paginator-range-label{
+  display: none !important;
+}

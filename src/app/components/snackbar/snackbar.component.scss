@@ -1,0 +1,37 @@
+// ::ng-deep .mat-snack-bar-container{
+//     background-color: #F1F1E6;
+//     border: solid grey 2px;
+// }
+
+.snackbar{
+    display: flex;
+    // flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message, .icon, .dismiss{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.error{
+    font-weight: 700;
+    color: lightgray !important;
+}
+.errorOk{
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.err i {
+    font-size: 21px !important;
+    color: red;
+}
+
+.success i {
+    font-size: 21px !important;
+    color: green;
+}

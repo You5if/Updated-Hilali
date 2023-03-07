@@ -32,7 +32,14 @@ import { Direction } from '@angular/cdk/bidi';
 export class ProductPricingComponent implements OnInit {
 
   idS !: number;
+  workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
   direction!: Direction;
+  headerToShow: any[] = []
   customerCode!: string;
   customerName!: string;
   customerMobile!: string;
@@ -104,17 +111,23 @@ export class ProductPricingComponent implements OnInit {
       }
 
   ngOnInit() {
-    this.titleService.setTitle("Product pricing - Elhelali");
+    this.titleService.setTitle("Item pricing - Elhelali");
       this.refreshMe();
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
-      this.header = "Product pricing"
-      this.product = "Product"
-      this.priceType = "Price type"
-      this.productUnit = "Product unit"
+      this.header = "Item pricing"
+      this.product = "Item"
+      this.priceType = "Item type"
+      this.productUnit = "Item unit"
       this.fromDate = "From date"
       this.toDate = "To date"
       this.price = "Price"
@@ -123,6 +136,8 @@ export class ProductPricingComponent implements OnInit {
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
+      this.headerToShow = ['Move', this.product,this.priceType, this.fromDate, this.toDate, this.price]
+  
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.header = "تسعيرة المنتجات"
@@ -136,10 +151,18 @@ export class ProductPricingComponent implements OnInit {
       this.edit = "تعديل"
       this.submit = "ارسال"
       this.cancel = "الغاء"
+      this.headerToShow = ['نقل', this.product,this.priceType, this.fromDate, this.toDate, this.price]
+  
     }
     this._cf.getPageData('ProductPricing', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
           this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
@@ -167,21 +190,27 @@ export class ProductPricingComponent implements OnInit {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
@@ -202,7 +231,7 @@ export class ProductPricingComponent implements OnInit {
       roleId: 2,
       languageId:  Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add pricing");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة تسعيرة");
@@ -218,7 +247,7 @@ export class ProductPricingComponent implements OnInit {
       roleId: 2,
       languageId:  Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add adjust price");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة تسعيرة");
@@ -234,7 +263,7 @@ export class ProductPricingComponent implements OnInit {
       roleId: 2,
       languageId:  Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Price change");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل السعر");
@@ -261,7 +290,7 @@ export class ProductPricingComponent implements OnInit {
       roleId: 2,
       languageId:  Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit pricing");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل تسعيرة");

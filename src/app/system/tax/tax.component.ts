@@ -31,7 +31,7 @@ export class TaxComponent implements OnInit {
   indexes!: any[]
 
     displayedColumns: string[] =
-        ['select','TaxName', 'TaxAmount'];
+        ['TaxName', 'TaxAmount'];
 
     dataSource: any;
     isLastPage = false;
@@ -43,7 +43,14 @@ export class TaxComponent implements OnInit {
     recordsPerPage: number;
     currentPageIndex: number;
     menuId: number;
-    direction!: Direction;
+    workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
+  direction!: Direction;
+  headerToShow: any[] = []
     nameT!: string;
     amount!: string;
     statusT!: string;
@@ -90,13 +97,21 @@ export class TaxComponent implements OnInit {
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Taxes"
      this.nameT = "Name"
      this.amount = "Amount"
      this.statusT = "Status"
       this.edit = "Edit"
+      this.headerToShow = [this.nameT, this.amount]
+
       
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
@@ -105,11 +120,17 @@ export class TaxComponent implements OnInit {
      this.amount = "المبلغ"
      this.statusT = "الحالة"
       this.edit = "تعديل"
-      
+      this.headerToShow = [this.nameT, this.amount]
     }
     this._cf.getPageData('Tax', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
           this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
@@ -138,21 +159,27 @@ export class TaxComponent implements OnInit {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
@@ -174,7 +201,7 @@ export class TaxComponent implements OnInit {
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
     localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add");
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add tax");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة ضريبة");
@@ -199,9 +226,9 @@ export class TaxComponent implements OnInit {
       recordId: id,
       userId: 26,
       roleId: 2,
-      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit tax");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل ضريبة");

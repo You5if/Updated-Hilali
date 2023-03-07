@@ -33,9 +33,50 @@
 </mat-toolbar>
 
 <!-- <Section [ngClass]="['custom-table-container']"> -->
-<Section [dir]="direction"  class="toolSection" mat-elevation-z8>
-
-  <mat-table #table [dataSource]="dataSource"  style="width: 100%">
+  <div  class="shimmerEffect" fxHide.gt-xs>
+    <div *ngIf="workShimmerCardBtn" class="itemRow">
+      <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+        'border-radius': '5px',
+        height: '37px',
+        width: '300px',
+        border: '1px solid white'
+      }"></ngx-skeleton-loader>
+    </div>
+    <div *ngIf="workShimmerCard" class="itemRow">
+      <ngx-skeleton-loader count="2" appearance="circle" [theme]="{ 
+        'border-radius': '5px',
+        height: '200px',
+        width: '450px',
+        border: '1px solid white'
+      }"></ngx-skeleton-loader>
+    </div>
+  
+  <div *ngIf="workShimmerPaginator" class="itemRow">
+    <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '50px',
+      width: '300px',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
+  
+  </div>
+  <Section  [dir]="direction" fxHide.xs  class="mainSection">
+  
+    <div class="tableHeader" *ngIf="!workShimmerHeader">
+      <div *ngFor="let header of headerToShow" class="tableHeaderItem">{{header}}</div>
+    </div>
+    <div *ngIf="workShimmerHeader" class="item">
+      <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+        'border-radius': '5px',
+        height: '50px',
+        width: '100%',
+        border: '1px solid white'
+      }"></ngx-skeleton-loader>
+    </div>
+  
+  <div  class="toolSection" *ngIf="!workShimmerTable">
+      <mat-table  #table [dataSource]="dataSource"  style="width: 100%">
 
     
     <ng-container matColumnDef="report">      <mat-header-cell class="centH" *matHeaderCellDef>Report</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.report}}</mat-cell>
@@ -105,13 +146,23 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <!-- <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row> -->
 
     <mat-row *matRowDef="let row; columns: displayedColumns;"
       [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted"
       (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
 
   </mat-table>
+
+</div>
+
+<div *ngIf="workShimmerTable" class="item">
+  <ngx-skeleton-loader count="1" appearance="line" [theme]="{ 
+    'border-radius': '5px',
+    height: '340px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</div>
 
 </Section>
 
@@ -159,9 +210,9 @@
 </section> -->
 
 
-<div class="paginator">
+<!-- <div class="paginator">
   <mat-paginator [length]="totalRecords" [pageSize]="recordsPerPage" [pageSizeOptions]="pageSizeOptions"
   (page)="paginatoryOperation($event)" showFirstLastButtons>
-</mat-paginator>
+</mat-paginator> -->
 
-</div>
+<!-- </div> -->

@@ -37,26 +37,67 @@
 </mat-toolbar>
 
 <!-- <Section [ngClass]="['custom-table-container']"> -->
-  <Section [dir]="direction" fxHide.xs class="toolSection" mat-elevation-z8>
+  <div  class="shimmerEffect" fxHide.gt-xs>
+  <div *ngIf="workShimmerCardBtn" class="itemRow">
+    <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '37px',
+      width: '300px',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
+  <div *ngIf="workShimmerCard" class="itemRow">
+    <ngx-skeleton-loader count="2" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '200px',
+      width: '450px',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
 
-  <mat-table #table [dataSource]="dataSource"  style="width: 100%">
+<div *ngIf="workShimmerPaginator" class="itemRow">
+  <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+    'border-radius': '5px',
+    height: '50px',
+    width: '300px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</div>
 
-    <!-- Columns definition here to be displayed -->
+</div>
+<Section  [dir]="direction" fxHide.xs  class="mainSection">
 
-    <ng-container matColumnDef="select">
-      <mat-header-cell class="cbPad"  *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-        [checked]="selection.hasValue() && isAllSelected()"
-        [indeterminate]="selection.hasValue() && !isAllSelected()">
-</mat-checkbox>
-      </mat-header-cell>
-       <mat-cell class="cbPad" *matCellDef="let row; let i = index">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null; onId(i,row)"
-                    [checked]="selection.isSelected(row)">
-      </mat-checkbox>
+  <div class="tableHeader" *ngIf="!workShimmerHeader">
+    <div *ngFor="let header of headerToShow" class="tableHeaderItem">{{header}}</div>
+  </div>
+  <div *ngIf="workShimmerHeader" class="item">
+    <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '50px',
+      width: '100%',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
 
-      </mat-cell>
+<div  class="toolSection" *ngIf="!workShimmerTable">
+    <mat-table  #table [dataSource]="dataSource"  style="width: 100%">
+
+      <!-- Columns definition here to be displayed -->
+  
+      <ng-container matColumnDef="select">
+        <mat-header-cell class="cbPad"  *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
+  </mat-checkbox>
+        </mat-header-cell>
+         <mat-cell class="cbPad" *matCellDef="let row; let i = index">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null; onId(i,row)"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+  
+        </mat-cell>
 
   </ng-container>
 
@@ -117,7 +158,7 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <!-- <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row> -->
 
     <div *ngIf="role === '2'">
 
@@ -136,9 +177,18 @@
     </div>
 
   </mat-table>
+</div>
+
+<div *ngIf="workShimmerTable" class="item">
+  <ngx-skeleton-loader count="1" appearance="line" [theme]="{ 
+    'border-radius': '5px',
+    height: '340px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</div>
 
 </Section>
-<section [dir]="direction" class="cards_section" fxHide.gt-xs>
+<section *ngIf="!workShimmerCard" [dir]="direction" class="cards_section" fxHide fxShow.xs>
   <div *ngFor="let index of indexes">
     <mat-card fxLayout class="card">
       <div >

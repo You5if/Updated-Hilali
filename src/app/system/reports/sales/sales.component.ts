@@ -92,7 +92,7 @@ export class SalesComponent implements OnInit {
     restOfUrl = 'customerid=' + this.customerId; 
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
   onFetch() { 
     const reportId:number = 13
@@ -102,7 +102,7 @@ export class SalesComponent implements OnInit {
     restOfUrl = 'invoiceid=' + this.invoiceId; 
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
   onProfile() { 
     const reportId:number = 8
@@ -112,7 +112,7 @@ export class SalesComponent implements OnInit {
     restOfUrl = 'customerid=' + this.customerId; 
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
 
   onChangeCustomer(id: number) {

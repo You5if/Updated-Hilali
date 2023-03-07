@@ -32,7 +32,13 @@ import { MySortComponent } from '../invoice/operation/my-sort/my-sort.component'
 export class ChequeToCompanyComponent implements OnInit {
 
     displayedColumns: string[] = [];
-
+    headerToShow: any[] = []
+    workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
     edit!:any
     dataSource: any;
     isLastPage = false;
@@ -112,9 +118,15 @@ export class ChequeToCompanyComponent implements OnInit {
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
-      this.header = "Cheque to"
+      this.header = "Cheques"
       this.chequeNumber = "Cheque"
       this.amount = "Amount"
       this.currencyName = "Currency"
@@ -123,11 +135,17 @@ export class ChequeToCompanyComponent implements OnInit {
       this.dueDate = "Due"
       this.passFail = "Pass/Fail"
       this.status = "Status"
-     
+      if (this.role == '2') {
+        this.headerToShow = ['Move', this.chequeNumber,this.amount, this.customerName, this.customerMobile1, this.dueDate, this.passFail, this.status]
+      }else if (this.role == '5') {
+        this.headerToShow = ['Move', this.chequeNumber,this.amount, this.customerName, this.customerMobile1, this.dueDate, this.passFail, this.status]
+      }else {
+        this.headerToShow = ['Move', this.chequeNumber,this.amount, this.customerName, this.customerMobile1, this.dueDate, this.status]
+      }
       
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
-      this.header = "الشيكات الى"
+      this.header = "الشيكات"
       this.chequeNumber = "الشيك"
       this.amount = "المبلغ"
       this.currencyName = "العملة"
@@ -136,33 +154,45 @@ export class ChequeToCompanyComponent implements OnInit {
       this.dueDate = "تاريخ الاستحقاق"
       this.passFail = "نجاح/فشل"
       this.status = "الحالة"
-      
+      if (this.role == '2') {
+        this.headerToShow = ['نقل', this.chequeNumber,this.amount, this.customerName, this.customerMobile1, this.dueDate, this.passFail, this.status]
+      }else if (this.role == '5') {
+        this.headerToShow = ['نقل', this.chequeNumber,this.amount, this.customerName, this.customerMobile1, this.dueDate, this.passFail, this.status]
+      }else {
+        this.headerToShow = ['نقل', this.chequeNumber,this.amount, this.customerName, this.customerMobile1, this.dueDate, this.status]
+      }
       
     }
 
-    this.pageData.sort = this._cf.sortVar
-    this.pageData.filter = this._cf.filterVar
+    // this.pageData.sort = this._cf.sortVar
+    // this.pageData.filter = this._cf.filterVar
 
-    this._ui.loadingStateChanged.next(true);
-    this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
-      this._ui.loadingStateChanged.next(false);
-      this.totalRecords = result[0].totalRecords;
-          this.recordsPerPage = this.recordsPerPage;
-          this.dataSource = new MatTableDataSource(result);
-          this.indexes = result
-          console.log(result)
-    })
-    // this._cf.getPageData('ChequeToCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
-    //   this.recordsPerPage, this.currentPageIndex, false).subscribe(
-    //     (result) => {
-    //       this.totalRecords = result[0].totalRecords;
+    // this._ui.loadingStateChanged.next(true);
+    // this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
+    //   this._ui.loadingStateChanged.next(false);
+    //   this.totalRecords = result[0].totalRecords;
     //       this.recordsPerPage = this.recordsPerPage;
     //       this.dataSource = new MatTableDataSource(result);
     //       this.indexes = result
-    //       console.log(result);
+    //       console.log(result)
+    // })
+    this._cf.getPageData('ChequeToCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
+      this.recordsPerPage, this.currentPageIndex, false).subscribe(
+        (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
+          this.totalRecords = result[0].totalRecords;
+          this.recordsPerPage = this.recordsPerPage;
+          this.dataSource = new MatTableDataSource(result);
+          this.indexes = result
+          console.log(result);
           
-    //     }
-    //   );
+        }
+      );
 
     this._auth.getScreenRights(this.menuId).subscribe((rights: RightModel) => {
       this.screenRights = {
@@ -314,6 +344,9 @@ checkFail  (id: number) {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this.pageData.sort = this._cf.sortVar
     this.pageData.filter = this._cf.filterVar
@@ -323,12 +356,15 @@ checkFail  (id: number) {
         this.pageData.sort, 
         this.pageData.filter).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });

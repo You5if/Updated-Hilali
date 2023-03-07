@@ -27,15 +27,22 @@ import { MySortComponent } from '../AnotherComponents/invoice/operation/my-sort/
 import { MyFilterComponent } from '../AnotherComponents/invoice/operation/my-filter/my-filter.component';
 
 @Component({
-    selector: 'app-journalentry',
-    templateUrl: './journalentry.component.html',
-    styleUrls: ['./journalentry.component.scss']
-  })
+  selector: 'app-journalentry',
+  templateUrl: './journalentry.component.html',
+  styleUrls: ['./journalentry.component.scss']
+})
 
 export class JournalEntryComponent implements OnInit {
 
-  indexes!: any[]
+  workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
   direction!: Direction;
+  headerToShow: any[] = []
+  indexes!: any[]
   entryDate!: string;
   debitacc!: string;
   creditacc!: string;
@@ -46,66 +53,66 @@ export class JournalEntryComponent implements OnInit {
   header!: string;
   opC: boolean = true
 
-    displayedColumns: string[] =
-        ['select','code','EntryDate', 'amount', 'currency', 'report'];
+  displayedColumns: string[] =
+    [ 'code', 'EntryDate', 'amount', 'currency', 'report'];
 
-    dataSource: any;
-    isLastPage = false;
-    pTableName: string;
-    pScreenId: number;  
-    code!:string
-    pTableId: number;
-    state!:string
-    recordsPerPage: number;
-    currentPageIndex: number;
-    ref!: string
-    menuId: number;
-    
-
-  pageData :any
-    report!:string
-    clickedRows = new Set<JournalEntryModel>();
-
-    totalRecords!: number;
-    pageSizeOptions: number[] = [5, 10, 25, 100];
-
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
+  dataSource: any;
+  isLastPage = false;
+  pTableName: string;
+  pScreenId: number;
+  code!: string
+  pTableId: number;
+  state!: string
+  recordsPerPage: number;
+  currentPageIndex: number;
+  ref!: string
+  menuId: number;
 
 
-    screenRights: RightModel = {
-        amendFlag: true,
-        createFlag: true,
-        deleteFlag: true,
-        editFlag: true,
-        exportFlag: true,
-        printFlag: true,
-        reverseFlag: true,
-        shortCloseFlag: true,
-        viewFlag: true
-      };
+  pageData: any
+  report!: string
+  clickedRows = new Set<JournalEntryModel>();
 
-    constructor(
-        public dialog: MatDialog,
-        private _cf: CommonService,
-        private _report: ReportPageService,
-        public _nav: SystemNavigationComponent,
-        private router: Router,
-        private _ui: UIService,
-        private _msg: MessageBoxService,
-        private _globals: AppGlobals,
-        private _auth: AuthService,
-        private _select: SelectService,
-        private journalentryservice: JournalEntryService,
-        private titleService: Title,
-      ) {
-        this.pTableName = 'JournalEntry';
-        this.pScreenId = 15;
-        this.pTableId = 15;
-        this.recordsPerPage = 10;
-        this.currentPageIndex = 1;
-        this.menuId = 1019106011;
-        this.titleService.setTitle("Journals - Greenfield");
-      }
+  totalRecords!: number;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+
+  screenRights: RightModel = {
+    amendFlag: true,
+    createFlag: true,
+    deleteFlag: true,
+    editFlag: true,
+    exportFlag: true,
+    printFlag: true,
+    reverseFlag: true,
+    shortCloseFlag: true,
+    viewFlag: true
+  };
+
+  constructor(
+    public dialog: MatDialog,
+    private _cf: CommonService,
+    private _report: ReportPageService,
+    public _nav: SystemNavigationComponent,
+    private router: Router,
+    private _ui: UIService,
+    private _msg: MessageBoxService,
+    private _globals: AppGlobals,
+    private _auth: AuthService,
+    private _select: SelectService,
+    private journalentryservice: JournalEntryService,
+    private titleService: Title,
+  ) {
+    this.pTableName = 'JournalEntry';
+    this.pScreenId = 15;
+    this.pTableId = 15;
+    this.recordsPerPage = 10;
+    this.currentPageIndex = 1;
+    this.menuId = 1019106011;
+    this.titleService.setTitle("Journals - Elhelali");
+  }
 
   ngOnInit() {
     this.pageData = {
@@ -118,11 +125,17 @@ export class JournalEntryComponent implements OnInit {
     }
     this._cf.setSort("")
     this._cf.setFilter("")
-      this.refreshMe();
+    this.refreshMe();
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+    this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.entryDate = "Date"
       this.debitacc = "Acc."
@@ -135,7 +148,9 @@ export class JournalEntryComponent implements OnInit {
       this.ref = " Reference"
       this.edit = "Edit"
       this.header = "Journals"
-    }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+      this.headerToShow = [this.code, this.entryDate,this.ref, this.debitacc, this.amount, this.creditacc, this.currency]
+
+    } else if (localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.entryDate = "التاريخ"
       this.debitacc = "الحسابات"
@@ -148,19 +163,27 @@ export class JournalEntryComponent implements OnInit {
       this.currency = "العملة"
       this.edit = "تعديل"
       this.header = "السجلات"
+      this.headerToShow = [this.code, this.entryDate,this.ref, this.debitacc, this.amount, this.creditacc, this.currency]
+
     }
 
     this.pageData.sort = this._cf.sortVar
     this.pageData.filter = this._cf.filterVar
 
-    this._ui.loadingStateChanged.next(true);
+    // this._ui.loadingStateChanged.next(true);
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
+      this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
       this.totalRecords = result[0].totalRecords;
-          this.recordsPerPage = this.recordsPerPage;
-          this.dataSource = new MatTableDataSource(result);
-          this.indexes = result
-          console.log(result)
+      this.recordsPerPage = this.recordsPerPage;
+      this.dataSource = new MatTableDataSource(result);
+      this.indexes = result
+      console.log(result)
     })
     // this._cf.getPageData('JournalEntry', this.pScreenId, this._auth.getUserId(), this.pTableId,
     //   this.recordsPerPage, this.currentPageIndex, false).subscribe(
@@ -196,13 +219,13 @@ export class JournalEntryComponent implements OnInit {
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
       this._ui.loadingStateChanged.next(false);
       this.totalRecords = result[0].totalRecords;
-          this.recordsPerPage = this.recordsPerPage;
-          this.dataSource = new MatTableDataSource(result);
-          this.indexes = result
+      this.recordsPerPage = this.recordsPerPage;
+      this.dataSource = new MatTableDataSource(result);
+      this.indexes = result
     })
     this.paginator.firstPage()
   }
-  
+
   onClearFilter() {
     this.pageData.filter = ""
     // this.invoiceservice.setSort("")
@@ -211,76 +234,76 @@ export class JournalEntryComponent implements OnInit {
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
       this._ui.loadingStateChanged.next(false);
       this.totalRecords = result[0].totalRecords;
-          this.recordsPerPage = this.recordsPerPage;
-          this.dataSource = new MatTableDataSource(result);
-          this.indexes = result
+      this.recordsPerPage = this.recordsPerPage;
+      this.dataSource = new MatTableDataSource(result);
+      this.indexes = result
     })
     this.paginator.firstPage()
   }
-  onMySort  () {
-    
-      const dialogRef = this.dialog.open(MySortComponent, {
-        disableClose: true,
-        data: {
-          tableId: 15,
-          recordId: 0,
-          userId: 26,
-          roleId: 2,
-          languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
-        }
-      });
-    
-    dialogRef.afterClosed().subscribe(() => {
-      this.refreshMe();
-    });
-    this.paginator.firstPage()
-  }
-  
-  onMyFilter  () {
+  onMySort() {
 
-      const dialogRef = this.dialog.open(MyFilterComponent, {
-        disableClose: true,
-        data: {
-          tableId: 15,
-          recordId: 0,
-          userId: 26,
-          roleId: 2,
-          languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
-        }
-      });
-    
+    const dialogRef = this.dialog.open(MySortComponent, {
+      disableClose: true,
+      data: {
+        tableId: 15,
+        recordId: 0,
+        userId: 26,
+        roleId: 2,
+        languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+      }
+    });
+
     dialogRef.afterClosed().subscribe(() => {
       this.refreshMe();
     });
     this.paginator.firstPage()
   }
 
-  onState  (id: number, status:any, rState: number) {
-    
-        if (rState != 2203) {
-          let stateModel = {
-            statusId :id
-          }
-          this._ui.loadingStateChanged.next(true);
-          this.opC = false
-          this.openState(stateModel);
-          this._ui.loadingStateChanged.next(false);
-        }
-    
+  onMyFilter() {
+
+    const dialogRef = this.dialog.open(MyFilterComponent, {
+      disableClose: true,
+      data: {
+        tableId: 15,
+        recordId: 0,
+        userId: 26,
+        roleId: 2,
+        languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.refreshMe();
+    });
+    this.paginator.firstPage()
+  }
+
+  onState(id: number, status: any, rState: number) {
+
+    if (rState != 2203) {
+      let stateModel = {
+        statusId: id
+      }
+      // this._ui.loadingStateChanged.next(true);
+      this.opC = false
+      this.openState(stateModel);
+      // this._ui.loadingStateChanged.next(false);
+    }
+
   };
 
-  openState  (result: any) {
+  openState(result: any) {
     const dialogRef = this.dialog.open(CheckforstateComponent, {
       disableClose: true,
-      
+
       data: result
     });
-  dialogRef.afterClosed().subscribe(() => {
-    this.refreshMe();
-  });
-};
+    dialogRef.afterClosed().subscribe(() => {
+      this.refreshMe();
+    });
+  };
 
-  onReport(jourId:number) { 
+  onReport(jourId: number) {
     this.opC = false
     var reportId: number
     reportId = 8
@@ -291,14 +314,14 @@ export class JournalEntryComponent implements OnInit {
     // }else if (report == "Rev vs. Exp") {
     //   reportId = 5; // if expense button: 3, Revenue: 4, RevVsExp: 5 
     // }
-    
-    let restOfUrl: string; 
-    restOfUrl = 'journalid=' + jourId; 
-     
+
+    let restOfUrl: string;
+    restOfUrl = 'journalid=' + jourId;
+
     console.log(restOfUrl)
-    this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    // this._nav.onClickListItem('FRP');
-    this.router.navigate(['/System/FinancialReportsPage']);
+    this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl });
+    // this.router.navigate(['System/Reports']);
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   applyFilter(filterValue: string) {
@@ -306,51 +329,57 @@ export class JournalEntryComponent implements OnInit {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this.pageData.sort = this._cf.sortVar
-    this.pageData.filter = this._cf.filterVar
+      this.pageData.filter = this._cf.filterVar
       this.pageData.recordsPerPage = event.pageSize
       this._cf.newGetPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
-        this.pTableId, this.totalRecords, 
-        this.pageData.sort, 
+        this.pTableId, this.totalRecords,
+        this.pageData.sort,
         this.pageData.filter).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
       // this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
       //   this.pTableId, this.totalRecords).subscribe(
       //     (result: JournalEntryModel) => {
-      //       this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
       //       this.totalRecords = result[0].totalRecords;
       //       this.recordsPerPage = event.pageSize;
       //       this.dataSource = result;
       //     }, error => {
-      //       this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
       //       this._msg.showAPIError(error);
       //       return false;
       //     });
-    } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+    } catch (error: any) {
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
   }
 
-  onSort () {
+  onSort() {
     const dialogRef = this.dialog.open(PageSortComponent, {
       disableClose: true,
       data: this.pTableId
     });
   };
 
-  onAdd  () {
+  onAdd() {
     const result: JournalEntryModel = {
       'journalEntryId': 0,
       'entryName': '',
@@ -367,18 +396,18 @@ export class JournalEntryComponent implements OnInit {
       'entryDate': formatDate(new Date(), 'yyyy-MM-dd', 'en_US')
     };
     localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add");
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add journal");
-    }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+    } else if (localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة سجل");
     }
     this.openEntry(result);
   };
 
   onView = (id: number) => {
-    this._ui.loadingStateChanged.next(true);
+    // this._ui.loadingStateChanged.next(true);
     this.journalentryservice.getJournalEntryEntry(id).subscribe((result: JournalEntryModel) => {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       result.entryMode = 'V';
       result.readOnly = true;
       this.openEntry(result);
@@ -387,30 +416,30 @@ export class JournalEntryComponent implements OnInit {
 
   onEdit = (id: number, rState: number) => {
     if (rState != 2203) {
-      if(this.opC == true) {
-        this._ui.loadingStateChanged.next(true);
+      if (this.opC == true) {
+        // this._ui.loadingStateChanged.next(true);
         this.journalentryservice.getJournalEntryEntry(id).subscribe((result: JournalEntryModel) => {
-          this._ui.loadingStateChanged.next(false);
+          // this._ui.loadingStateChanged.next(false);
           result.entryMode = 'E';
           result.readOnly = false;
-          if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+          if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
             localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit journal");
-          }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+          } else if (localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
             localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل سجل");
           }
           this.openEntry(result);
         });
-      }else {
-        this._ui.loadingStateChanged.next(false);
+      } else {
+        // this._ui.loadingStateChanged.next(false);
         this.opC = true
       }
-    }else {
+    } else {
       console.log('user');
-      
+
     }
   }
 
-  onDelete = function(id: number) {
+  onDelete = function (id: number) {
 
   };
 
@@ -421,24 +450,26 @@ export class JournalEntryComponent implements OnInit {
   }
   masterToggle() {
     this.isAllSelected() ?
-        (this.selection.clear() ,this.clickedRows.clear()):
-        (this.selection.clear(), this.dataSource.data.forEach((row:any) => {this.selection.select(row); if (!this.clickedRows.has(row)) {
+      (this.selection.clear(), this.clickedRows.clear()) :
+      (this.selection.clear(), this.dataSource.data.forEach((row: any) => {
+        this.selection.select(row); if (!this.clickedRows.has(row)) {
 
           this.clickedRows.add(row)
-        }}))
+        }
+      }))
   }
 
-  onId(id: number, row:JournalEntryModel) {
-    
+  onId(id: number, row: JournalEntryModel) {
+
     if (this.clickedRows.has(row)) {
       this.clickedRows.delete(row)
-    }else {
+    } else {
       this.clickedRows.add(row)
     }
 
   }
 
-  openEntry (result: JournalEntryModel) {
+  openEntry(result: JournalEntryModel) {
     if (result === undefined) {
       const dialogRef = this.dialog.open(JournalEntryEntryComponent, {
         disableClose: true,

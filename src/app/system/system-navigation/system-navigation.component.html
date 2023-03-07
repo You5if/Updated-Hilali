@@ -11,17 +11,21 @@
 
     <div fxLayout class="logo_container">
       
-        <div class="user" (click)="onClickListItem('H')">
-          <img  class="user_img" src="../../../assets/images/svg/user (1).png" alt="">
-          
-          
+      <div  class="user" (click)="onClickHome()" fxLayout="column" fxLayoutGap="8px">
+        <img  class="user_img" src="../../../assets/images/svg/userreal.png"  alt="">
+        <div class="nameBox">
+          <p class="nameFont">{{userName}} <span *ngIf="userName == 'Milesh'">Shah</span></p>
+        <p class="nameFont2">{{userEmail}}</p>
         </div>
+        
+        
+      </div>
       
       <div  fxFlex fxLayout fxLayoutAlign="flex-start">
         <button class="toggle_btn3" type="button"  mat-icon-button (click)="drawer.toggle(); onToggle()">
 
-          <mat-icon *ngIf="direction==='ltr'">chevron_left</mat-icon>
-          <mat-icon *ngIf="direction==='rtl'">chevron_right</mat-icon>
+          <mat-icon *ngIf="!checkEng()">chevron_left</mat-icon>
+          <mat-icon *ngIf="checkEng()">chevron_right</mat-icon>
           <!-- <mat-icon>fast_rewind</mat-icon> -->
         </button>
       </div>
@@ -31,97 +35,130 @@
 
     <div class="menu_item">
       <ul class="side_list" id="myDIV">
-        <li (click)="onClickListItem('H')" fxHide class="side_list_item active"><mat-icon>home</mat-icon><div class="title"> {{home}}</div></li>
+        <li  fxHide class="side_list_item active"><mat-icon>home</mat-icon><div class="title"> {{home}}</div></li>
         
-        <li (click)="onClickListItem('BP')" fxHide class="side_list_item"><mat-icon>person</mat-icon><div class="title"> {{businessP}}</div></li>
-        <mat-divider></mat-divider>
-        <div *ngIf="role === '3' || role === '2' || role === '9'" class="main_title">
-          <span class="fon">{{accounting}}</span>
-        </div>
-        <mat-divider *ngIf="role === '3' || role === '2' || role === '9'"></mat-divider>
-        <!-- <li (click)="onClickListItem('ECharts')" class="side_list_item active"><mat-icon>home</mat-icon><div class="title"> E-Charts</div></li> -->
-        <!-- <li (click)="onClickListItem('Charts')" class="side_list_item active"><mat-icon>home</mat-icon><div class="title"> Charts</div></li> -->
-        <li *ngIf="role === '3' || role === '2'" (click)="onClickListItem('J')" class="side_list_item"><mat-icon>library_books</mat-icon><div class="title"> {{journal}}</div></li>
-        <!-- <li (click)="onClickListItem('JD')" class="side_list_item"><mat-icon>library_books</mat-icon><div class="title"> Journal Dynamic</div></li> -->
-        <li *ngIf="role === '3' || role === '2' || role === '9'" (click)="onClickListItem('E')" class="side_list_item"><mat-icon> local_atm</mat-icon><div class="title"> {{expense}}</div></li>
+        <li  fxHide class="side_list_item"><mat-icon>person</mat-icon><div class="title"> {{businessP}}</div></li>
+       
         
-        <!-- <li (click)="onClickListItem('ED')" class="side_list_item"><mat-icon> local_atm</mat-icon><div class="title">Expense Dynamic</div></li> -->
+        <mat-expansion-panel *ngIf="role === '3' || role === '2' || role === '9'" (opened)="openPanels(1)" class="mat-elevation-z0"  [expanded]="openPanel1" hideToggle appCustomMatExpansionToggle>
+          <mat-expansion-panel-header [@.disabled]="true">
+            <mat-panel-title>
+              <mat-icon>account_balance</mat-icon> <div class="exTitle">{{accounting}}</div>
+            </mat-panel-title>
+            <div><mat-icon class="indicator">chevron_right</mat-icon></div>
+          </mat-expansion-panel-header>
+          <!-- <li *ngIf="role === '2'" routerLink="customer" routerLinkActive="is-active"  class="side_list_item"><mat-icon>person</mat-icon><div class="title"> {{customer}}</div></li> -->
+          <li *ngIf="role === '3' || role === '2'" routerLink="JournalEntry" routerLinkActive="is-active" class="side_list_item"><mat-icon>library_books</mat-icon><div class="title"> {{journal}}</div></li>
+          <li *ngIf="role === '3' || role === '2' || role === '9'" routerLink="Expense" routerLinkActive="is-active"  class="side_list_item"><mat-icon> local_atm</mat-icon><div class="title"> {{expense}}</div></li> 
+        </mat-expansion-panel>
         
-        <mat-divider *ngIf="role === '4' || role === '2'"></mat-divider>
-        <div *ngIf="role === '4' || role === '2'" class="main_title">
-          <h3 class="fon">{{config}}</h3>
+        <mat-expansion-panel *ngIf="role === '4' || role === '2'" (opened)="openPanels(2)" class="mat-elevation-z0"  [expanded]="openPanel2" hideToggle appCustomMatExpansionToggle>
+          <mat-expansion-panel-header [@.disabled]="true">
+            <mat-panel-title>
+              <mat-icon>supervised_user_circle</mat-icon> <div class="exTitle">{{config}}</div>
+            </mat-panel-title>
+            <div><mat-icon class="indicator">chevron_right</mat-icon></div>
+          </mat-expansion-panel-header>
+          <!-- <li *ngIf="role === '2'" routerLink="customer" routerLinkActive="is-active"  class="side_list_item"><mat-icon>person</mat-icon><div class="title"> {{customer}}</div></li> -->
+          <li *ngIf="role === '4' || role === '2'" routerLink="Account" routerLinkActive="is-active" class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{account}}</div></li>
+          <!-- <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('T')" class="side_list_item"><mat-icon>receipt</mat-icon><div class="title"> {{tax}}</div></li> -->
+        <li *ngIf="role === '4' || role === '2'" routerLink="Forex" routerLinkActive="is-active" class="side_list_item"><mat-icon> attach_money</mat-icon><div class="title"> {{forex}}</div></li>
+        <!-- <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('A')" class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{account}}</div></li> -->
+        <li *ngIf="role === '4' || role === '2'" routerLink="AccountConfig" routerLinkActive="is-active" class="side_list_item"><mat-icon> vpn_key</mat-icon><div class="title">{{accountConfiguration}}</div></li>
+        <li *ngIf="role === '4' || role === '2'" routerLink="Bank" routerLinkActive="is-active" class="side_list_item"><mat-icon>account_balance</mat-icon><div class="title">{{bank}}</div></li>
+        <li *ngIf="role === '4' || role === '2'" routerLink="BankBranch" routerLinkActive="is-active" class="side_list_item"><mat-icon>account_balance</mat-icon><div class="title">{{bankBranch}}</div></li>
+        <li *ngIf="role === '4' || role === '2'" routerLink="BankAccount" routerLinkActive="is-active" class="side_list_item"><mat-icon> account_balance</mat-icon><div class="title">{{bankAccount}}</div></li>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="role === '5' || role === '2' || role === '3' || role === '9' || role === '10'" (opened)="openPanels(3)" class="mat-elevation-z0"  [expanded]="openPanel3" hideToggle appCustomMatExpansionToggle>
+          <mat-expansion-panel-header [@.disabled]="true">
+            <mat-panel-title>
+              <mat-icon>poll</mat-icon> <div class="exTitle">{{sales}}</div>
+            </mat-panel-title>
+            <div><mat-icon class="indicator">chevron_right</mat-icon></div>
+          </mat-expansion-panel-header>
+          <li *ngIf="role === '5' || role === '2'" routerLink="Customer" routerLinkActive="is-active" class="side_list_item"><mat-icon>group</mat-icon><div class="title">{{customer}}</div></li>
+        <li *ngIf="role === '5' || role === '2' || role === '9' || role === '10'" routerLink="Invoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoice}}</div></li>
+        <li *ngIf="role === '2'" routerLink="InvoiceMeter" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoiceM}}</div></li>
+        <li *ngIf="role === '5' || role === '2' || role === '9'" routerLink="PaymentToCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentToCompany}}</div></li>
+        <li *ngIf="role === '5' || role === '2' || role === '9'" routerLink="PaymentFromCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentFromCompany}}</div></li>
+        <li *ngIf="role === '5' || role === '2'" routerLink="cheque" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-check-alt"></i><div class="title">{{cheque}}</div></li>
+        <li *ngIf="role === '5' || role === '2'" routerLink="chequeFrom" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-check-alt"></i><div class="title">{{cheque2}}</div></li>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="role === '6' || role === '2' || role === '11'" (opened)="openPanels(4)" class="mat-elevation-z0"  [expanded]="openPanel4" hideToggle appCustomMatExpansionToggle>
+          <mat-expansion-panel-header [@.disabled]="true">
+            <mat-panel-title>
+              <mat-icon>pages</mat-icon> <div class="exTitle">{{inventory}}</div>
+            </mat-panel-title>
+            <div><mat-icon class="indicator">chevron_right</mat-icon></div>
+          </mat-expansion-panel-header>
+          <li *ngIf="role === '6' || role === '2'" routerLink="Product" routerLinkActive="is-active" class="side_list_item"><mat-icon> layers</mat-icon><div class="title">{{product}}</div></li>
+          <li *ngIf="role === '6' || role === '2'" routerLink="ProductCat" routerLinkActive="is-active" class="side_list_item"><mat-icon>book</mat-icon><div class="title">{{productCategory}}</div></li>
+          <li *ngIf="role === '6' || role === '2'" routerLink="ProductGroup" routerLinkActive="is-active" class="side_list_item"><mat-icon>group_work</mat-icon><div class="title">{{productGroup}}</div></li>
+          <li *ngIf="role === '6' || role === '2'" routerLink="ProductUnit" routerLinkActive="is-active" class="side_list_item"><mat-icon>label</mat-icon><div class="title">{{productUnit}}</div></li>
+          <li *ngIf="role === '6' || role === '2'" routerLink="ProductPricing" routerLinkActive="is-active" class="side_list_item"><mat-icon>attach_money</mat-icon><div class="title">{{productPricing}}</div></li>
+          <li *ngIf="role === '6' || role === '2' || role === '11'" routerLink="ProductStock" routerLinkActive="is-active" class="side_list_item"><mat-icon>check_circle</mat-icon><div class="title">{{productStock}}</div></li>
+          <li *ngIf="role === '6' || role === '2'" routerLink="ProductUnitConverstion" routerLinkActive="is-active" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productUnitConversion}}</div></li>
+          <li *ngIf="role === '6' || role === '2'" routerLink="WareHouse" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-warehouse"></i><div class="title">{{warehouse}}</div></li>
+          <li *ngIf="role === '6' || role === '2'" routerLink="StockIn" routerLinkActive="is-active" class="side_list_item"><mat-icon>add_shopping_cart</mat-icon><div class="title">{{stockIn}}</div></li>
+          <li *ngIf="role === '6' || role === '2' || role === '11'" routerLink="StockMovement" routerLinkActive="is-active" class="side_list_item"><mat-icon>remove_shopping_cart</mat-icon><div class="title">{{stockMovement}}</div></li>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="role === '2' || role === '3' || role === '8'" (opened)="openPanels(5)" class="mat-elevation-z0"  [expanded]="openPanel5" hideToggle appCustomMatExpansionToggle>
+          <mat-expansion-panel-header [@.disabled]="true">
+            <mat-panel-title>
+              <mat-icon>filter_none</mat-icon> <div class="exTitle">{{purchase}}</div>
+            </mat-panel-title>
+            <div><mat-icon class="indicator">chevron_right</mat-icon></div>
+          </mat-expansion-panel-header>
+          <li *ngIf="role === '8' || role === '2'" routerLink="Supplier" routerLinkActive="is-active" class="side_list_item"><mat-icon>person</mat-icon><div class="title"> {{supplier}}</div></li>
+          <li *ngIf="role === '2' || role === '3'" routerLink="PaymentFromCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentFromCompany}}</div></li>
+          <li *ngIf="role === '8' || role === '2'" routerLink="SupplierForex" routerLinkActive="is-active" class="side_list_item"><mat-icon>home</mat-icon><div class="title"> {{suppForex}}</div></li>
+          <li *ngIf="role === '8' || role === '2'" routerLink="ProcurmentExpense" routerLinkActive="is-active" class="side_list_item"><mat-icon>list</mat-icon><div class="title"> {{proExpense}}</div></li>
+          <li *ngIf="role === '8' || role === '2'" routerLink="ProcurmentExpenseList" routerLinkActive="is-active" class="side_list_item"><mat-icon>featured_play_list</mat-icon><div class="title"> {{proExpenseList}}</div></li>
+          <li *ngIf="role === '8' || role === '2'" routerLink="ProcurmentInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title"> {{proInv}}</div></li>
+          
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="role === '7' || role === '2'" (opened)="openPanels(6)" class="mat-elevation-z0"  [expanded]="openPanel6" hideToggle appCustomMatExpansionToggle>
+          <mat-expansion-panel-header [@.disabled]="true">
+            <mat-panel-title>
+              <mat-icon> bar_chart</mat-icon> <div class="exTitle">{{reports}}</div>
+            </mat-panel-title>
+            <div><mat-icon class="indicator">chevron_right</mat-icon></div>
+          </mat-expansion-panel-header>
+          <li *ngIf="role === '7' || role === '2'" routerLink="FinancialReports" routerLinkActive="is-active"  class="side_list_item"><mat-icon> attach_money</mat-icon><div class="title">{{financialReports}}</div></li>
+        <li *ngIf="role === '7' || role === '2'" routerLink="SalesReports" routerLinkActive="is-active"  class="side_list_item"><mat-icon>shopping_cart</mat-icon><div class="title">{{salesReports}}</div></li>
+        <li *ngIf="role === '7' || role === '2'" routerLink="PurchaseReports" routerLinkActive="is-active"  class="side_list_item"><mat-icon>card_travel</mat-icon><div class="title">{{purchaseReports}}</div></li>
+        <li *ngIf="role === '7' || role === '2'" routerLink="InventoryReports" routerLinkActive="is-active"  class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{inventoryReports}}</div></li>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="role === '7' || role === '2'" (opened)="openPanels(7)" class="mat-elevation-z0"  [expanded]="openPanel7" hideToggle appCustomMatExpansionToggle>
+          <mat-expansion-panel-header [@.disabled]="true">
+            <mat-panel-title>
+              <mat-icon>calendar_today</mat-icon> <div class="exTitle">{{fym}}</div>
+            </mat-panel-title>
+            <div><mat-icon class="indicator">chevron_right</mat-icon></div>
+          </mat-expansion-panel-header>
+          <li *ngIf="role === '7' || role === '2'" routerLink="FiscalYear" routerLinkActive="is-active"  class="side_list_item"><mat-icon>calendar_view_day</mat-icon><div class="title">{{fiscalYear}}</div></li>
+        <li *ngIf="role === '7' || role === '2'" routerLink="AccountOpen" routerLinkActive="is-active"  class="side_list_item"><mat-icon>account_balance</mat-icon><div class="title">{{accountOpen}}</div></li>
+        <li *ngIf="role === '7' || role === '2'" routerLink="StockOpen" routerLinkActive="is-active"  class="side_list_item"><mat-icon>check_circle</mat-icon><div class="title">{{StockOpen}}</div></li>
+        <li *ngIf="role === '7' || role === '2'" routerLink="CustOpen" routerLinkActive="is-active"  class="side_list_item"><mat-icon>account_box</mat-icon><div class="title">{{CustOpen}}</div></li>
+        <li *ngIf="role === '7' || role === '2'" routerLink="SuppOpen" routerLinkActive="is-active"  class="side_list_item"><mat-icon>person</mat-icon><div class="title">{{SuppOpen}}</div></li>
+        </mat-expansion-panel>
+        <!-- <div class="item">
+          <ngx-skeleton-loader count="5" appearance="circle"></ngx-skeleton-loader>
+        </div> -->
+       
+        <!-- <div *ngIf="role === '2'" class="main_title">
+          <span class="fon">{{management}}</span>
         </div>
-        <mat-divider *ngIf="role === '4' || role === '2'"></mat-divider>
-        <!-- <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('T')" class="side_list_item"><mat-icon>receipt</mat-icon><div class="title"> {{tax}}</div></li> -->
-        <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('F')" class="side_list_item"><mat-icon> attach_money</mat-icon><div class="title"> {{forex}}</div></li>
-        <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('A')" class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{account}}</div></li>
-        <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('AC')" class="side_list_item"><mat-icon> vpn_key</mat-icon><div class="title">{{accountConfiguration}}</div></li>
-        <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('B')" class="side_list_item"><mat-icon>account_balance</mat-icon><div class="title">{{bank}}</div></li>
-        <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('BB')" class="side_list_item"><mat-icon>account_balance</mat-icon><div class="title">{{bankBranch}}</div></li>
-        <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('BA')" class="side_list_item"><mat-icon> account_balance</mat-icon><div class="title">{{bankAccount}}</div></li>
-        <mat-divider *ngIf="role === '5' || role === '2'"></mat-divider>
-        <div *ngIf="role === '5' || role === '2' || role === '9' || role === '10'" class="main_title">
-          <h3 class="fon">{{sales}}</h3>
-        </div>
-        <mat-divider *ngIf="role === '5' || role === '2' || role === '9' || role === '10'"></mat-divider>
-        <li *ngIf="role === '5' || role === '2'" (click)="onClickListItem('C')" class="side_list_item"><mat-icon>group</mat-icon><div class="title">{{customer}}</div></li>
-        
-        <li *ngIf="role === '5' || role === '2' || role === '9' || role === '10'" (click)="onClickListItem('I')" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoice}}</div></li>
-  
-        <li *ngIf="role === '2'" (click)="onClickListItem('IM')" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoiceM}}</div></li>
-  
-        <li *ngIf="role === '5' || role === '2' || role === '9'" (click)="onClickListItem('PTC')" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentToCompany}}</div></li>
-        <li *ngIf="role === '5' || role === '2' || role === '9'" (click)="onClickListItem('PFC')" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentFromCompany}}</div></li>
-        <li *ngIf="role === '5' || role === '2'" (click)="onClickListItem('CTC')" class="side_list_item"><i class="fas fa-money-check-alt"></i><div class="title">{{cheque}}</div></li>
-        <li *ngIf="role === '5' || role === '2'" (click)="onClickListItem('CTC2')" class="side_list_item"><i class="fas fa-money-check-alt"></i><div class="title">{{cheque2}}</div></li>
-        <mat-divider *ngIf="role === '6' || role === '2'"></mat-divider>
-        <div *ngIf="role === '6' || role === '2' || role === '11'" class="main_title">
-          <h3 class="fon">{{inventory}}</h3>
-        </div>
-        <mat-divider *ngIf="role === '6' || role === '2' || role === '11'"></mat-divider>
-        <li *ngIf="role === '6' || role === '2'" (click)="onClickListItem('P')" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{product}}</div></li>
-        <li *ngIf="role === '6' || role === '2'" (click)="onClickListItem('PC')" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productCategory}}</div></li>
-        <li *ngIf="role === '6' || role === '2'" (click)="onClickListItem('PG')" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productGroup}}</div></li>
-        <li *ngIf="role === '6' || role === '2'" (click)="onClickListItem('PU')" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productUnit}}</div></li>
-        <li *ngIf="role === '6' || role === '2'" (click)="onClickListItem('PP')" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productPricing}}</div></li>
-        <li *ngIf="role === '6' || role === '2' || role === '11'" (click)="onClickListItem('PS')" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productStock}}</div></li>
-        <li *ngIf="role === '6' || role === '2'" (click)="onClickListItem('PUC')" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productUnitConversion}}</div></li>
-        <li *ngIf="role === '6' || role === '2'" (click)="onClickListItem('W')" class="side_list_item"><i class="fas fa-warehouse"></i><div class="title">{{warehouse}}</div></li>
-        <li *ngIf="role === '6' || role === '2'" (click)="onClickListItem('SI')" class="side_list_item"><mat-icon>add_shopping_cart</mat-icon><div class="title">{{stockIn}}</div></li>
-        <li *ngIf="role === '6' || role === '2' || role === '11'" (click)="onClickListItem('SM')" class="side_list_item"><mat-icon>remove_shopping_cart</mat-icon><div class="title">{{stockMovement}}</div></li>
-        <mat-divider *ngIf="role === '8' || role === '2'"></mat-divider>
-        <div *ngIf="role === '8' || role === '2'" class="main_title">
-          <span class="fon">{{purchase}}</span>
-        </div>
-        <mat-divider *ngIf="role === '8' || role === '2'"></mat-divider>
-        <!-- <li (click)="onClickListItem('ECharts')" class="side_list_item active"><mat-icon>home</mat-icon><div class="title"> E-Charts</div></li> -->
-        <li *ngIf="role === '8' || role === '2'" (click)="onClickListItem('SUB')" class="side_list_item"><mat-icon>home</mat-icon><div class="title"> {{supplier}}</div></li>
-        <li *ngIf="role === '3' || role === '2'" (click)="onClickListItem('PFC')" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentFromCompany}}</div></li>
-        <li *ngIf="role === '8' || role === '2'" (click)="onClickListItem('SF')" class="side_list_item"><mat-icon>home</mat-icon><div class="title"> {{suppForex}}</div></li>
-        <li *ngIf="role === '8' || role === '2'" (click)="onClickListItem('PEX')" class="side_list_item"><mat-icon>home</mat-icon><div class="title"> {{proExpense}}</div></li>
-        <li *ngIf="role === '8' || role === '2'" (click)="onClickListItem('PEXL')" class="side_list_item"><mat-icon>home</mat-icon><div class="title"> {{proExpenseList}}</div></li>
-        <li *ngIf="role === '8' || role === '2'" (click)="onClickListItem('PIN')" class="side_list_item"><mat-icon>home</mat-icon><div class="title"> {{proInv}}</div></li>
-        
-        <mat-divider *ngIf="role === '7' || role === '2'"></mat-divider>
-        <div *ngIf="role === '7' || role === '2'" class="main_title">
-          <h3 class="fon">{{reports}}</h3>
-        </div>
-        <mat-divider *ngIf="role === '7' || role === '2'"></mat-divider>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('FR')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{financialReports}}</div></li>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('SR')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{salesReports}}</div></li>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('PR')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{purchaseReports}}</div></li>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('IR')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{inventoryReports}}</div></li>
-        <!-- <li (click)="onSignOut()" class="side_list_item"><mat-icon>keyboard_return</mat-icon><div class="title"> {{logout}}</div></li> -->
-        <mat-divider *ngIf="role === '7' || role === '2'"></mat-divider>
-        <div *ngIf="role === '7' || role === '2'" class="main_title">
-          <h3 class="fon">{{fym}}</h3>
-        </div>
-        <mat-divider *ngIf="role === '7' || role === '2'"></mat-divider>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('FY')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{fiscalYear}}</div></li>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('AO')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{accountOpen}}</div></li>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('SO')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{StockOpen}}</div></li>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('CO')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{CustOpen}}</div></li>
-        <li *ngIf="role === '7' || role === '2'" (click)="onClickListItem('SUO')" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{SuppOpen}}</div></li>
+        <mat-divider *ngIf="role === '2'"></mat-divider>
+    
+        <li *ngIf="role === '2'" routerLink="customer" routerLinkActive="is-active"  class="side_list_item"><mat-icon>person_outline</mat-icon><div class="title"> {{customer}}</div></li>
+        <li *ngIf="role === '2'" routerLink="lead" routerLinkActive="is-active"  class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{lead}}</div></li>
+        <li *ngIf="role === '2' || role === '12'" routerLink="lead" routerLinkActive="is-active"  class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{leadcre}}</div></li>
+        <li *ngIf="role === '2' || role === '13'" routerLink="lead" routerLinkActive="is-active"  class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{leadqua}}</div></li>
+        <li *ngIf="role === '2' || role === '14'" routerLink="lead" routerLinkActive="is-active"  class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{leaddis}}</div></li>
+        <li *ngIf="role === '2' || role === '15'" routerLink="lead" routerLinkActive="is-active"  class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{leadass}}</div></li>
+        <li *ngIf="role === '2' || role === '16'" routerLink="lead" routerLinkActive="is-active"  class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{leadfollow}}</div></li>
+        -->
       </ul>
     </div>
 
@@ -137,7 +174,7 @@
     </div> -->
 
     <div class="markon_logo">
-      <img src="../../../assets/images/svg/Markon logo-white.png" width="60px" height="60px" alt="">
+      <img src="../../../assets/images/svg/Markon logo-white.png" (click)="onClickHome()" height="50px"  alt="">
       
     </div>
 
@@ -160,10 +197,10 @@
           </div>
 
           <div class="middle" fxLayout  fxLayoutGap="20px">
-            <div class="search_container" >
+            <!-- <div class="search_container" >
               <input type="text" matInput class="search">
               <mat-icon class="search_icon" aria-label="Example home icon">search</mat-icon>
-            </div>
+            </div> -->
 
             <!-- <button  fxHide.xs mat-icon-button class="add_btn" >
               <mat-icon >add</mat-icon>
@@ -178,15 +215,21 @@
           <mat-menu #menu3="matMenu">
             <button class="icon" (click)="onChangeLanguage()" mat-menu-item>
               <i class="fas fa-globe"></i>
-              <span class="settingsOtp">{{lang}}</span>
+              <span class="logout">{{lang}}</span>
             </button>
             <!-- <button class="icon" (click)="onClickListItem('BP')" mat-menu-item>
               <i class="fas fa-user"></i>
-              <span class="settingsOtp">{{profile}}</span>
+              <span class="logout">{{profile}}</span>
+            </button> -->
+            <!-- <button class="icon" (click)="onChangePassword()" mat-menu-item>
+              <a class="icon-insde">
+                <i class="fas fa-key"></i>
+                {{changePassword}}
+                </a>
             </button> -->
             <button class="icon" (click)="onSignOut()" mat-menu-item>
               <i class="fas fa-sign-out-alt"></i>
-              <span class="settingsOtp">{{logout}}</span>
+              <span class="logout"> {{logout}}</span>
             </button>
             
             
@@ -282,7 +325,8 @@
 <!-- </mat-card>
         </div> -->
         <div class="actions_box">
-          <div [ngSwitch]="navigation">
+          <router-outlet></router-outlet>
+           <!-- <div [ngSwitch]="navigation">
             <div *ngSwitchCase="'Home'">
               <app-system-home></app-system-home>
             </div>
@@ -313,9 +357,7 @@
             <div *ngSwitchCase="'ProInv'">
               <app-suppinvoice></app-suppinvoice>
             </div>
-            <!--<div *ngSwitchCase="'ExpenseDynamic'">
-              <app-expensedynamic></app-expensedynamic>
-            </div>-->
+            
             <div *ngSwitchCase="'AccountConfig'">
               <app-accountconfiguration></app-accountconfiguration>
             </div>
@@ -376,9 +418,7 @@
             <div *ngSwitchCase="'StockMovement'">
               <app-stockmovement></app-stockmovement>
             </div>
-            <!-- <div *ngSwitchCase="'JournalDynamic'">
-              <app-journaldynamic></app-journaldynamic>
-            </div>-->
+            
             <div *ngSwitchCase="'ProductStock'">
               <app-productstock></app-productstock>
             </div>
@@ -418,10 +458,11 @@
             <div *ngSwitchCase="'Cheque2'">
               <app-chequeto2company></app-chequeto2company>
             </div>
-            <!-- <div *ngSwitchCase="'Charts'">
+            <div *ngSwitchCase="'Charts'">
               <app-charts></app-charts>
-            </div> -->
-          </div>
+            </div>
+          </div> -->
+
 
         </div>
       </div>

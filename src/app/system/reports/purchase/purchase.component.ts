@@ -92,7 +92,7 @@ export class PurchaseComponent implements OnInit {
     restOfUrl = 'supplierid=' + this.customerId; 
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
   onFetch() { 
     const reportId:number = 12
@@ -102,7 +102,7 @@ export class PurchaseComponent implements OnInit {
     restOfUrl = 'invoiceid=' + this.invoiceId; 
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
   onProfile() { 
     const reportId:number = 9
@@ -112,7 +112,7 @@ export class PurchaseComponent implements OnInit {
     restOfUrl = 'supplierid=' + this.customerId; 
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
 
   onChangeCustomer(id: number) {

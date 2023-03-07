@@ -1,5 +1,5 @@
-::ng-deep.custom-dialog > .mat-dialog-container {
-  background: white;
+.mat-dialog-container {
+  padding: 0px;
 }
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
@@ -9,22 +9,8 @@
 ::ng-deep .mat-checkbox-layout {
   background: #ffffff;
 }
-.chImg {
-  cursor: pointer;
-  margin-left: 20px;
-}
-
-.slash {
-  margin-top: 10px;
-}
-.btnPF {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.sfimg {
-  width: 28px;
-  height: 28px;
+.mat-dialog-container {
+  padding: 0px;
 }
 :host {
   ::ng-deep {
@@ -34,8 +20,19 @@
     }
   }
 }
+.skeleton {
+  height: 37px !important;
+  padding: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.shimmerEffect2 {
+  margin-top: 100px;
+}
 .sec {
   width: 100%;
+  height: 35px;
   display: flex;
   justify-content: flex-start;
   margin-left: 15px;
@@ -45,23 +42,23 @@
   background: #f1f2f6;
 }
 .rowR {
-  //   cursor: pointer;
+  cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-// .rowR:hover {
-//   background: #f1f2f6;
-//   transform: scale(1.05);
-//   padding: 0 24px;
+.rowR:hover {
+  background: #f1f2f6;
+  transform: scale(1.05);
+  padding: 0 24px;
 
-//   .cent {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     font-size: 17px !important;
-//     font-weight: bold;
-//   }
-//   // box-shadow: 0 0px 0px rgba(0, 0, 0, 0), 0 1px 5px rgba(0, 0, 0, 0.1) inset;
-// }
+  .cent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px !important;
+    font-weight: bold;
+  }
+  // box-shadow: 0 0px 0px rgba(0, 0, 0, 0), 0 1px 5px rgba(0, 0, 0, 0.1) inset;
+}
 .cbPad {
   padding-left: 35px;
   margin-top: 7px;
@@ -72,14 +69,6 @@
   justify-content: center;
   align-items: center;
 }
-.centH {
-  display: flex;
-  font-size: 18px !important;
-  font-weight: bolder;
-  color: #ffffff;
-  justify-content: center;
-  align-items: center;
-}
 .cent2 {
   margin-top: 7px;
 }
@@ -87,17 +76,33 @@
 .paginator {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+}
+.itemRow {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+.itemRow2 {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}
+::ng-deep.custom-dialog > .mat-dialog-container {
+  background: white;
 }
 .headerRow {
   top: 0px;
   position: sticky;
-  background: #34495e;
+  background: #2E2A26;
   color: #ffffff;
   z-index: 1;
 }
-
+.cent {
+  display: flex;
+  justify-content: center;
+}
 .index_row {
   display: flex;
   flex-direction: row;
@@ -106,6 +111,7 @@
 
 .fontY {
   font-size: 35px !important;
+
   font-weight: lighter;
 }
 
@@ -113,68 +119,87 @@
   outline: none;
   border: none;
 }
-
 .add_btn {
   background: #20bf6b;
-  margin-left: 10px;
+
   outline: none;
   border: none;
   color: white;
 }
-.pass_btn {
-  color: #20bf6b;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  // color: white;
-}
-.fail_btn {
-  color: red;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  // color: white;
-}
-
-.indexContent {
-  margin-left: 10px;
-}
-.cards_section {
-  background-color: lightgrey;
-  margin-top: 50px;
-}
 .toolbar {
   background: white;
 }
-.toolSection {
+// .toolSection {
+//   // margin-top: 50px;
+// }
+.centH {
+  display: flex;
+  font-size: 18px !important;
+  font-weight: bolder;
+  color: #ffffff;
+  justify-content: center;
+  align-items: center;
+}
+.mainSection {
   height: 390px;
+  overflow: hidden;
+  
+  // overflow-y: scroll;
+  // border: 1px solid lightgray;
+  // border-radius: 5px;
+}
+.tableHeader {
+  background: #2E2A26;
+  display: flex;
+  margin-bottom: 5px;
+  border-radius: 7px;
+  height: 50px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 24px;
+}
+.tableHeaderItem {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px !important;
+  font-weight: bolder;
+  color: #ffffff;
+  
+}
+.toolSection {
+  height: 330px;
   overflow: hidden;
   overflow-y: scroll;
   border: 1px solid lightgray;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 .toolSection::-webkit-scrollbar {
   width: 3px;
-  margin-top: 50px;
 }
 .toolSection::-webkit-scrollbar-thumb {
   border-radius: 50px;
 
   background-color: #e9e9e9;
 }
+.cards_section {
+  background-color: lightgrey;
+  margin-top: 50px;
+}
+
 .card {
   display: flex;
   justify-content: space-between;
   margin: 5px 0;
   width: 100%;
 }
-
 @media (max-width: 600px) {
   .add_btn {
     background: #20bf6b;
-    border-radius: 10px;
+
     outline: none;
-    width: 100% !important;
+    
     border: none;
     color: white;
   }
@@ -195,3 +220,10 @@
     background-color: #e9e9e9;
   }
 }
+
+.sfimg {
+  height: 30px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+

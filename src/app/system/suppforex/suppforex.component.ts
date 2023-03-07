@@ -31,7 +31,7 @@ import { Direction } from '@angular/cdk/bidi';
 export class SuppForexComponent implements OnInit {
 
     displayedColumns: string[] =
-        ['select','Currency', 'FromDate', 'ToDate', 'Amount'];
+        ['Currency', 'FromDate', 'ToDate', 'Amount'];
 
     dataSource: any;
     model!: Send;
@@ -49,7 +49,14 @@ export class SuppForexComponent implements OnInit {
   toDate!: string;
   price!: string;
 
-    direction!: Direction;
+    workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
+  direction!: Direction;
+  headerToShow: any[] = []
     suppForexId!: string;
     indexes!:any[]
  
@@ -99,7 +106,13 @@ export class SuppForexComponent implements OnInit {
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Purchase forex"
       this.suppForexId = "suppForexId"
@@ -109,6 +122,8 @@ export class SuppForexComponent implements OnInit {
       this.price = "Price"
       
       this.edit = "Edit"
+      this.headerToShow = [this.currency, this.fromDate,this.toDate, this.price]
+
       
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
@@ -120,14 +135,23 @@ export class SuppForexComponent implements OnInit {
       this.price = "السعر"
       
       this.edit = "تعديل"
+
+      this.headerToShow = [this.currency, this.fromDate,this.toDate, this.price]
       
     }
     this._cf.getPageData('SuppForex', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
           this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
+          this.indexes = result
         this.indexes = result
         }
       );
@@ -152,21 +176,27 @@ export class SuppForexComponent implements OnInit {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
@@ -185,9 +215,9 @@ export class SuppForexComponent implements OnInit {
       recordId: 0,
       userId: 26,
       roleId: 2,
-      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add Purchase forex");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة فوركس شراء");
@@ -211,9 +241,9 @@ export class SuppForexComponent implements OnInit {
       recordId: id,
       userId: 26,
       roleId: 2,
-      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit Purchase forex");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل فوركس الشراء");

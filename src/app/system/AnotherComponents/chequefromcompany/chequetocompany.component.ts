@@ -54,7 +54,14 @@ export class ChequeFromCompanyComponent implements OnInit {
     direction! : Direction
     indexes!: any[]
     clickedRows = new Set<ChequeToCompanyModel>();
-    selection = new SelectionModel<ChequeToCompanyModel>(true, []);;
+    selection = new SelectionModel<ChequeToCompanyModel>(true, []);workShimmerBtn: boolean;
+workShimmerHeader: boolean;
+workShimmerTable: boolean;
+workShimmerCard: boolean;
+workShimmerCardBtn: boolean;
+workShimmerPaginator: boolean;
+  headerToShow: any[] = [];
+;
 
     role = localStorage.getItem("role");
     pageData: any
@@ -112,7 +119,13 @@ export class ChequeFromCompanyComponent implements OnInit {
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Cheque from"
       this.chequeNumber = "Cheque"
@@ -123,7 +136,11 @@ export class ChequeFromCompanyComponent implements OnInit {
       this.dueDate = "Due"
       this.passFail = "Pass/Fail"
       this.status = "Status"
-     
+      if (this.role == '5') {
+        this.headerToShow =[this.chequeNumber, this.amount, this.dueDate, this.passFail, this.status];
+      }else {
+        this.headerToShow =[this.chequeNumber, this.amount, this.dueDate, this.status];
+      }
       
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
@@ -137,11 +154,21 @@ export class ChequeFromCompanyComponent implements OnInit {
       this.passFail = "نجاح/فشل"
       this.status = "الحالة"
       
-      
+      if (this.role == '5') {
+        this.headerToShow =[this.chequeNumber, this.amount, this.dueDate, this.passFail, this.status];
+      }else {
+        this.headerToShow =[this.chequeNumber, this.amount, this.dueDate, this.status];
+      }
     }
     this._cf.getPageData('ChequeFromCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
           this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
@@ -299,21 +326,27 @@ checkFail(id: number) {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }

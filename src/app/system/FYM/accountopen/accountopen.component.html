@@ -6,9 +6,16 @@
       {{header}}
     </section>
 
-    <section class="sec" >
+    <section class="sec"  >
 
-      <button class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon>add</mat-icon></button>
+      <button *ngIf="!workShimmerBtn || !workShimmerCardBtn" class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon >add</mat-icon></button>
+ 
+        <ngx-skeleton-loader fxHide.xs *ngIf="workShimmerBtn" class="skeleton" count="1" appearance="circle" [theme]="{ 
+          'border-radius': '5px',
+          height: '37px',
+          width: '60px',
+          border: '1px solid white'
+        }"></ngx-skeleton-loader>
       <!-- <button mat-button color="primary" (click)="openEntry()">Filter</button>
       <button mat-button color="primary" (click)="onSort()">Sort</button>
       <button mat-button color="primary" (click)="openEntry()" [disabled]="!screenRights.printFlag">Print</button>
@@ -94,15 +101,24 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <!-- <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row> -->
 
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.accountOpenId)" class="rowR" [class.active]="clickedRows.has(row)" ></mat-row>
 
   </mat-table>
 
+
+<div *ngIf="workShimmerTable" class="item">
+  <ngx-skeleton-loader count="1" appearance="line" [theme]="{ 
+    'border-radius': '5px',
+    height: '340px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</div>
+
 </Section>
 
-<section [dir]="direction" class="cards_section" fxHide.gt-xs>
+<section *ngIf="!workShimmerCard" [dir]="direction" class="cards_section" fxHide fxShow.xs>
   <div *ngFor="let index of indexes">
     <mat-card fxLayout class="card">
       <div >

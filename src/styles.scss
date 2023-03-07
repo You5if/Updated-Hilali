@@ -100,3 +100,32 @@ body {
   background-color: grey;
   color: white;
 }
+@keyframes inwards-open {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes inwards-close {
+  0% {
+    transform: rotate(0deg) !important;
+  }
+
+  100% {
+    transform: rotate(90deg) !important;
+  }
+}
+
+.rotate {
+  transform: rotate(90deg);
+  transition: 225ms;
+}
+
+.reverse {
+  transform: rotate(0deg);
+  transition: 225ms;
+}

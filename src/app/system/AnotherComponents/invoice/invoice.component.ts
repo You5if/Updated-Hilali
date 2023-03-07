@@ -292,7 +292,7 @@ export class InvoiceComponent implements OnInit {
      
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
 
   onDelete(idAC:number) { 

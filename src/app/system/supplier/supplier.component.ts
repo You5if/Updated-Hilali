@@ -30,7 +30,7 @@ import { Direction } from '@angular/cdk/bidi';
 export class SupplierComponent implements OnInit {
 
     displayedColumns: string[] =
-        ['select', 'supplierCode', 'supplierName', 'companyName', 'supplierEmail', 'mobile1', 'mobile2'];
+        [ 'supplierCode', 'supplierName', 'companyName', 'supplierEmail', 'mobile1', 'mobile2'];
 
     dataSource: any;
     isLastPage = false;
@@ -40,7 +40,14 @@ export class SupplierComponent implements OnInit {
     recordsPerPage: number;
     currentPageIndex: number;
     menuId: number;
-    direction!: Direction;
+    workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
+  direction!: Direction;
+  headerToShow: any[] = []
     supplierCode!: string;
     supplierName!: string;
     companyName!: string;
@@ -99,7 +106,13 @@ export class SupplierComponent implements OnInit {
   }
 
   refreshMe() {
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Supplier"
      this.supplierCode = "Code"
@@ -109,7 +122,8 @@ export class SupplierComponent implements OnInit {
      this.mobile1 = "Contact1"
      this.mobile2 = "Contact2"
       this.edit = "Edit"
-      
+      this.headerToShow = [this.supplierCode, this.supplierName,this.companyName, this.supplierEmail, this.mobile1, this.mobile2]
+
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.header = "الممول"
@@ -120,11 +134,18 @@ export class SupplierComponent implements OnInit {
      this.mobile1 = "هاتف1"
      this.mobile2 = "هاتف2"
       this.edit = "تعديل"
+      this.headerToShow = [this.supplierCode, this.supplierName,this.companyName, this.supplierEmail, this.mobile1, this.mobile2]
       
     }
     this._cf.getPageData('Supplier', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
+          this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
           this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
@@ -152,21 +173,27 @@ export class SupplierComponent implements OnInit {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
@@ -188,7 +215,7 @@ export class SupplierComponent implements OnInit {
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
     localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add");
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+        if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add supplier");
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Add");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
@@ -214,9 +241,9 @@ export class SupplierComponent implements OnInit {
       recordId: id,
       userId: 26,
       roleId: 2,
-      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit supplier");
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {

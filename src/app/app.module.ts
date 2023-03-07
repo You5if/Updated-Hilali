@@ -282,6 +282,11 @@ import { CheckforstateComponent } from "./system/journalentry/operation/stateche
 import { MyTestAutoComponent } from "./system/my-test-auto/my-test-auto.component";
 import { InvoiceMeterEntryComponent } from "./system/AnotherComponents/invoice meteric/invoice-entry/invoice-entry.component";
 import { InvoiceMeterComponent } from "./system/AnotherComponents/invoice meteric/invoice.component";
+import { CustomMatExpansionToggleDirective } from "./system/system-navigation/expansion-panel";
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
+import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
+import { SnackbarComponent } from "./components/snackbar/snackbar.component";
+
 
 
 
@@ -560,7 +565,9 @@ export const jwtConfig = {
     Checkforpass2Component,
     MyTestAutoComponent,
     InvoiceMeterComponent,
-    InvoiceMeterEntryComponent
+    InvoiceMeterEntryComponent,
+    CustomMatExpansionToggleDirective,
+    SnackbarComponent,
     
 
 
@@ -570,6 +577,7 @@ export const jwtConfig = {
   ],
   imports: [
     SocialLoginModule.initialize(config),
+    NgxSkeletonLoaderModule.forRoot({ animation: 'pulse', loadingText: 'This item is actually loading...' }),
     BrowserModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -595,6 +603,7 @@ export const jwtConfig = {
     
   ],
   providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 6000}},
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -740,7 +749,9 @@ export const jwtConfig = {
     ChequeFromCompanyEntryComponent,
     Checkforpass2Component,
     MyTestAutoComponent,
-    InvoiceMeterEntryComponent
+    InvoiceMeterEntryComponent,
+    CustomMatExpansionToggleDirective,
+    SnackbarComponent,
   ]
 })
 export class AppModule {}

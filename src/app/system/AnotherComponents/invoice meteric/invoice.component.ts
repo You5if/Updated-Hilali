@@ -39,7 +39,14 @@ import { CheckfordeleteComponent } from '../invoice/operation/checkfordelete/che
 export class InvoiceMeterComponent implements OnInit {
 
   idS! : number;
+  workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
   direction!: Direction;
+  headerToShow: any[] = []
   customerCode!: string;
   customerName!: string;
   customerMobile!: string;
@@ -127,6 +134,11 @@ export class InvoiceMeterComponent implements OnInit {
       }
 
   ngOnInit() {
+    // if (this.role === '3') {
+    //   this.displayedColumns = ['InvoiceNo', 'InvoiceDate', 'report'];
+    // }else {
+    //   this.displayedColumns = ['InvoiceNo', 'InvoiceDate', 'report', 'delete'];
+    // }
     this.titleService.setTitle("Invoice - Elhelali");
     this.pageData = {
       tableId: this.pTableId,
@@ -143,9 +155,15 @@ export class InvoiceMeterComponent implements OnInit {
 
   refreshMe() {
     
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+    this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
+    if (localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
-      this.header = "Invoice (Cubic meter)"
+      this.header = "POS"
       this.invoiceNo = "Invoice No."
       this.invoiceDate = "Invoice Date"
       this.customer = "Customer"
@@ -153,21 +171,30 @@ export class InvoiceMeterComponent implements OnInit {
       this.edit = "Edit"
       this.report = "Report"
       this.delete = "Delete"
-      
-    }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+      if (this.role === '3') {
+        this.headerToShow = [this.invoiceNo, this.invoiceDate,this.report]
+      }else {
+        this.headerToShow = [this.invoiceNo, this.invoiceDate,this.report, this.delete]
+      }
+
+    } else if (localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
-      this.header = "الفواتير (للمتر مربع)"
+      this.header = "POS"
       this.invoiceNo = "الفاتورة"
       this.invoiceDate = "التاريخ"
       this.customer = "العميل"
       this.warehouse = "المخزن"
       this.delete = "حذف"
-    //   this.nameT = "الاسم"
-    //  this.amount = "المبلغ"
-    //  this.statusT = "الحالة"
+      //   this.nameT = "الاسم"
+      //  this.amount = "المبلغ"
+      //  this.statusT = "الحالة"
       this.edit = "تعديل"
       this.report = "تقرير "
-      
+      if (this.role === '3') {
+        this.headerToShow = [this.invoiceNo, this.invoiceDate,this.report]
+      }else {
+        this.headerToShow = [this.invoiceNo, this.invoiceDate,this.report, this.delete]
+      }
     }
 
     if (this._cf.filterVar != '') {
@@ -181,9 +208,15 @@ export class InvoiceMeterComponent implements OnInit {
     this.pageData.sort = this._cf.sortVar
     // this.pageData.filter = this._cf.filterVar
 
-    this._ui.loadingStateChanged.next(true);
+    // this._ui.loadingStateChanged.next(true);
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
+      this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
       this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
@@ -303,7 +336,7 @@ export class InvoiceMeterComponent implements OnInit {
      
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
 
   onDelete(idAC:number) { 
@@ -329,6 +362,9 @@ export class InvoiceMeterComponent implements OnInit {
   }
 
   paginatoryOperation(event: PageEvent) {
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
     try {
       this.pageData.sort = this._cf.sortVar
     this.pageData.filter = this._cf.filterVar
@@ -338,12 +374,15 @@ export class InvoiceMeterComponent implements OnInit {
         this.pageData.sort, 
         this.pageData.filter).subscribe(
           (result: any) => {
-            this._ui.loadingStateChanged.next(false);
+            this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+            // this._ui.loadingStateChanged.next(false);
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
           }, error => {
-            this._ui.loadingStateChanged.next(false);
+            // this._ui.loadingStateChanged.next(false);
             this._msg.showAPIError(error);
             return false;
           });
@@ -360,7 +399,7 @@ export class InvoiceMeterComponent implements OnInit {
       //       return false;
       //     });
     } catch (error:any) {
-      this._ui.loadingStateChanged.next(false);
+      // this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }

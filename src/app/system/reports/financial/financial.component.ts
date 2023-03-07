@@ -50,7 +50,8 @@ export class FinancialComponent implements OnInit {
         ['report', 'from', 'to', 'currency', 'fetch'];
 
     dataSource: any;
-    selection = new SelectionModel<AccountModel>(true, []);;
+    selection = new SelectionModel<AccountModel>(true, []);fetch: string;
+;
     isLastPage = false;
     pTableName: string;
     pScreenId: number;
@@ -58,6 +59,13 @@ export class FinancialComponent implements OnInit {
     recordsPerPage: number;
     currentPageIndex: number;
     menuId: number;
+    workShimmerBtn: boolean;
+  workShimmerTable: boolean;
+  workShimmerCard: boolean;
+  workShimmerPaginator: boolean;
+  workShimmerHeader:boolean;
+  workShimmerCardBtn: boolean;
+  headerToShow: any[] = []
 
     totalRecords!: number;
     pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -104,30 +112,48 @@ export class FinancialComponent implements OnInit {
   }
 
   refreshMe() {
+    this.workShimmerBtn = true
+    this.workShimmerHeader = true
+    this.workShimmerTable = true
+    this.workShimmerCard = true
+    this.workShimmerCardBtn = true
+    this.workShimmerPaginator = true
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Account"
-      this.accountCode = "Account Code"
-      this.accountName = "Account Name"
-      this.accountType = "Account Type"
-      this.balance = "Balance"
+      this.accountCode = "Report"
+      this.accountName = "From"
+      this.accountType = "To"
+      this.balance = "Currency"
+      this.fetch = "Fetch"
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
+      this.headerToShow = [this.accountCode, this.accountName, this.accountType, this.balance, this.fetch]
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.header = "الحسابات"
-      this.accountCode = "رمز الحساب"
-      this.accountName = "اسم الحساب"
-      this.accountType = "نوع الحساب"
+      this.accountCode = "التقرير"
+      this.accountName = "من"
+      this.accountType = "الى"
+      this.balance = "العملة"
+      this.fetch = "ادخال"
       this.balance = "الحساب"
       this.edit = "تعديل"
       this.submit = "ارسال"
       this.cancel = "الغاء"
+      this.headerToShow = [this.accountCode, this.accountName, this.accountType, this.balance, this.fetch]
+
     }
 
     this._select.getDropdown("miscdetailId", "miscdetail", "misctext", "miscid=17", false).subscribe((res: SelectModel[]) => {
       console.log("drop: ", res);
+      this.workShimmerBtn = false
+          this.workShimmerHeader = false
+    this.workShimmerTable = false
+    this.workShimmerCard = false
+    this.workShimmerCardBtn = false
+    this.workShimmerPaginator = false
       var curr: SelectModel[] = res
       var Tdate: string = formatDate(new Date(), 'yyyy-MM-dd', 'en_US');
       const src = [
@@ -187,7 +213,7 @@ export class FinancialComponent implements OnInit {
     restOfUrl = restOfUrl + '&currency=' + currency; 
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId!, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    //this._nav.onClickListItem('FRP');
   }
  
   paginatoryOperation(event: PageEvent) {
