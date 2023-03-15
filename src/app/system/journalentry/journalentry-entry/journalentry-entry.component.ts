@@ -169,7 +169,7 @@ elemSource = new MatTableDataSource(this.elem);
     this.accountType = res;
     console.log(res);
 });
-  this._select.getDropdown('CustomerAccountId','CustomerAccount',"concat(studentcode,':',Ename)",'active=1 and deleted=0 and CustomerAccountId>1',false).subscribe((res: SelectModel[]) => {
+  this._select.getDropdown('CustomerAccountId','CustomerAccount',"concat(accountcode,':',accountname)",'active=1 and deleted=0 and CustomerAccountId>1',false).subscribe((res: SelectModel[]) => {
     this.customers = res;
 });
   this._select.getDropdown('Supplierid','Supplier','Suppliername','active=1 and deleted=0 and Supplierid>1',false).subscribe((res: SelectModel[]) => {
@@ -527,7 +527,7 @@ elemSource = new MatTableDataSource(this.elem);
     // }else
      if(id === 82) {
       this.elem[i].showSupplier1 = true
-    }else if(id === 81) {
+    }else if(id === 118) {
       this.elem[i].showCustomer1 = true
     }else {
       this.elem[i].showShare1 = false

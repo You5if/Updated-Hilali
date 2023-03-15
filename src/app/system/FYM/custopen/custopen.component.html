@@ -138,7 +138,7 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row  class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <!-- <mat-header-row  class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row> -->
 
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.custOpenId)" class="rowR" [class.active]="clickedRows.has(row)" ></mat-row>
 

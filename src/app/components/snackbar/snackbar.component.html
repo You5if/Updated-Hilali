@@ -1,5 +1,6 @@
 <div class="snackbar">
 
+  <div class="{{messageType == 'Success' ? 'messageTagSuccess' : messageType == 'Error' ? 'messageTagError' : 'messageTag'}}"></div>
   <!-- for error messages -->
   <!-- <div *ngIf= "!isSuccess" class="err icon">
     <i   class="fa fa-times-circle" ></i>
@@ -17,6 +18,6 @@
   </div>
   <div class="dismiss">
     <!-- <i class="fa fa-close" (click)="closeDialog()"></i> -->
-    <div class="errorOk" (click)="closeDialog()">Ok</div>
+    <div class="errorOk" (click)="closeDialog()"><mat-icon>close</mat-icon></div>
   </div>
 </div>

@@ -164,35 +164,41 @@ export class ChequeToCompanyComponent implements OnInit {
       
     }
 
-    // this.pageData.sort = this._cf.sortVar
-    // this.pageData.filter = this._cf.filterVar
+    this.pageData.sort = this._cf.sortVar
+    this.pageData.filter = this._cf.filterVar
 
     // this._ui.loadingStateChanged.next(true);
-    // this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
-    //   this._ui.loadingStateChanged.next(false);
-    //   this.totalRecords = result[0].totalRecords;
-    //       this.recordsPerPage = this.recordsPerPage;
-    //       this.dataSource = new MatTableDataSource(result);
-    //       this.indexes = result
-    //       console.log(result)
-    // })
-    this._cf.getPageData('ChequeToCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
-      this.recordsPerPage, this.currentPageIndex, false).subscribe(
-        (result) => {
-          this.workShimmerBtn = false
+    this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
+      // this._ui.loadingStateChanged.next(false);
+            this.workShimmerBtn = false
           this.workShimmerHeader = false
     this.workShimmerTable = false
     this.workShimmerCard = false
     this.workShimmerCardBtn = false
     this.workShimmerPaginator = false
-          this.totalRecords = result[0].totalRecords;
+      this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
           this.indexes = result
-          console.log(result);
+          console.log(result)
+    })
+    // this._cf.getPageData('ChequeToCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
+    //   this.recordsPerPage, this.currentPageIndex, false).subscribe(
+    //     (result) => {
+    //       this.workShimmerBtn = false
+    //       this.workShimmerHeader = false
+    // this.workShimmerTable = false
+    // this.workShimmerCard = false
+    // this.workShimmerCardBtn = false
+    // this.workShimmerPaginator = false
+    //       this.totalRecords = result[0].totalRecords;
+    //       this.recordsPerPage = this.recordsPerPage;
+    //       this.dataSource = new MatTableDataSource(result);
+    //       this.indexes = result
+    //       console.log(result);
           
-        }
-      );
+    //     }
+    //   );
 
     this._auth.getScreenRights(this.menuId).subscribe((rights: RightModel) => {
       this.screenRights = {

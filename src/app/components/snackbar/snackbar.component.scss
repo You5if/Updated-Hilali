@@ -14,16 +14,130 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 15px;
     
+}
+
+.messageTag {
+    width: 20px;
+    // background: #27ac65;
+    // background: #20bf6b;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    /* flex: 1; */
+    height: -webkit-fill-available;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.messageTagSuccess {
+    width: 20px;
+    // background: #27ac65;
+    background: #20bf6b;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    /* flex: 1; */
+    height: -webkit-fill-available;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.messageTagError {
+    width: 20px;
+    // background: #27ac65;
+    background: rgb(207, 18, 18);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    /* flex: 1; */
+    height: -webkit-fill-available;
+    left: 0;
+    top: 0;
+    position: absolute;
 }
 
 .error{
     font-weight: 700;
-    color: lightgray !important;
+    color: white !important;
 }
 .errorOk{
     font-weight: 700;
     cursor: pointer;
+    color: white !important;
+}
+
+.err i {
+    font-size: 21px !important;
+    color: red;
+}
+
+.success i {
+    font-size: 21px !important;
+    color: green;
+}// ::ng-deep .mat-snack-bar-container{
+//     background-color: #F1F1E6;
+//     border: solid grey 2px;
+// }
+
+.snackbar{
+    display: flex;
+    // flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message, .icon, .dismiss{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    
+}
+
+.messageTag {
+    width: 20px;
+    // background: #27ac65;
+    // background: #20bf6b;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    /* flex: 1; */
+    height: -webkit-fill-available;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.messageTagSuccess {
+    width: 20px;
+    // background: #27ac65;
+    background: #20bf6b;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    /* flex: 1; */
+    height: -webkit-fill-available;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.messageTagError {
+    width: 20px;
+    // background: #27ac65;
+    background: rgb(207, 18, 18);
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    /* flex: 1; */
+    height: -webkit-fill-available;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+
+.error{
+    font-weight: 700;
+    color: white !important;
+}
+.errorOk{
+    font-weight: 700;
+    cursor: pointer;
+    color: white !important;
 }
 
 .err i {

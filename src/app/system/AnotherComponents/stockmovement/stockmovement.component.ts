@@ -51,7 +51,7 @@ export class StockMovementComponent implements OnInit {
 
   model!: Send;
     displayedColumns: string[] =
-        ['StockMovementDate', 'StockMovementCode','fromWarehouse', 'toWarehouse', 'edit'];
+        ['StockMovementDate', 'StockMovementCode','fromWarehouse', 'toWarehouse'];
 
     dataSource: any;
     isLastPage = false;
@@ -129,7 +129,7 @@ export class StockMovementComponent implements OnInit {
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
-      this.headerToShow = [this.stockMovementDate, this.stockMovementCode,this.fromWarehouse, this.toWarehouse, this.edit]
+      this.headerToShow = [this.stockMovementDate, this.stockMovementCode,this.fromWarehouse, this.toWarehouse]
 
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
@@ -142,7 +142,7 @@ export class StockMovementComponent implements OnInit {
       this.edit = "تعديل"
       this.submit = "ارسال"
       this.cancel = "الغاء"
-      this.headerToShow = [this.stockMovementDate, this.stockMovementCode,this.fromWarehouse, this.toWarehouse, this.edit]
+      this.headerToShow = [this.stockMovementDate, this.stockMovementCode,this.fromWarehouse, this.toWarehouse]
 
     }
     this._cf.getPageData('StockMovement', this.pScreenId, this._auth.getUserId(), this.pTableId,

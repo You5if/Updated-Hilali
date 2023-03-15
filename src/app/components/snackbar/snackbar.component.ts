@@ -8,7 +8,7 @@ import { MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar'
 })
 export class SnackbarComponent implements OnInit {
 
-  
+  messageType:string;
 
   constructor(
     @Inject(MAT_SNACK_BAR_DATA) public data:any,
@@ -17,7 +17,7 @@ export class SnackbarComponent implements OnInit {
 
   ngOnInit() {
     console.log('snack data', this.data);
-    
+    this.messageType = this.data.title
   }
 
   isSuccess(){

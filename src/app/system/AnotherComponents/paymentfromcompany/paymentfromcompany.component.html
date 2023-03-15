@@ -8,7 +8,14 @@
 
     <section class="sec">
 
-      <button class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon >add</mat-icon></button>
+      <button *ngIf="!workShimmerBtn || !workShimmerCardBtn" class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon >add</mat-icon></button>
+ 
+        <ngx-skeleton-loader fxHide.xs *ngIf="workShimmerBtn" class="skeleton" count="1" appearance="circle" [theme]="{ 
+          'border-radius': '5px',
+          height: '37px',
+          width: '60px',
+          border: '1px solid white'
+        }"></ngx-skeleton-loader>
       <!-- <button mat-button color="primary" (click)="openEntry()">Filter</button>
       <button mat-button color="primary" (click)="onSort()">Sort</button>
       <button mat-button color="primary" (click)="openEntry()" [disabled]="!screenRights.printFlag">Print</button>

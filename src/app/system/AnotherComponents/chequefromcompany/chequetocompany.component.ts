@@ -92,7 +92,7 @@ workShimmerPaginator: boolean;
         private _select: SelectService,
         private chequetocompanyservice: ChequeToCompanyService
       ) {
-        this.pTableName = 'ChequeToCompany';
+        this.pTableName = 'ChequeFromCompany';
         this.pScreenId = 61;
         this.pTableId = 61;
         this.recordsPerPage = 10;
@@ -160,23 +160,40 @@ workShimmerPaginator: boolean;
         this.headerToShow =[this.chequeNumber, this.amount, this.dueDate, this.status];
       }
     }
-    this._cf.getPageData('ChequeFromCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
-      this.recordsPerPage, this.currentPageIndex, false).subscribe(
-        (result) => {
-          this.workShimmerBtn = false
+    this.pageData.sort = this._cf.sortVar
+    this.pageData.filter = this._cf.filterVar
+
+    this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
+      // this._ui.loadingStateChanged.next(false);
+            this.workShimmerBtn = false
           this.workShimmerHeader = false
     this.workShimmerTable = false
     this.workShimmerCard = false
     this.workShimmerCardBtn = false
     this.workShimmerPaginator = false
-          this.totalRecords = result[0].totalRecords;
+      this.totalRecords = result[0].totalRecords;
           this.recordsPerPage = this.recordsPerPage;
           this.dataSource = new MatTableDataSource(result);
           this.indexes = result
-          console.log(result);
+          console.log(result)
+    })
+    // this._cf.getPageData('ChequeFromCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
+    //   this.recordsPerPage, this.currentPageIndex, false).subscribe(
+    //     (result) => {
+    //       this.workShimmerBtn = false
+    //       this.workShimmerHeader = false
+    // this.workShimmerTable = false
+    // this.workShimmerCard = false
+    // this.workShimmerCardBtn = false
+    // this.workShimmerPaginator = false
+    //       this.totalRecords = result[0].totalRecords;
+    //       this.recordsPerPage = this.recordsPerPage;
+    //       this.dataSource = new MatTableDataSource(result);
+    //       this.indexes = result
+    //       console.log(result);
           
-        }
-      );
+    //     }
+    //   );
 
     this._auth.getScreenRights(this.menuId).subscribe((rights: RightModel) => {
       this.screenRights = {
@@ -330,8 +347,13 @@ checkFail(id: number) {
     this.workShimmerCard = true
     this.workShimmerCardBtn = true
     try {
-      this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
-        this.pTableId, this.totalRecords).subscribe(
+      this.pageData.sort = this._cf.sortVar
+    this.pageData.filter = this._cf.filterVar
+      this.pageData.recordsPerPage = event.pageSize
+      this._cf.newGetPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
+        this.pTableId, this.totalRecords, 
+        this.pageData.sort, 
+        this.pageData.filter).subscribe(
           (result: any) => {
             this.workShimmerTable = false
     this.workShimmerCard = false
@@ -345,8 +367,20 @@ checkFail(id: number) {
             this._msg.showAPIError(error);
             return false;
           });
+      // this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
+      //   this.pTableId, this.totalRecords).subscribe(
+      //     (result: any) => {
+      //       this._ui.loadingStateChanged.next(false);
+      //       this.totalRecords = result[0].totalRecords;
+      //       this.recordsPerPage = event.pageSize;
+      //       this.dataSource = result;
+      //     }, error => {
+      //       this._ui.loadingStateChanged.next(false);
+      //       this._msg.showAPIError(error);
+      //       return false;
+      //     });
     } catch (error:any) {
-      // this._ui.loadingStateChanged.next(false);
+      this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }

@@ -39,10 +39,50 @@
 
 </mat-toolbar>
 
-<!-- <Section [ngClass]="['custom-table-container']"> -->
-  <Section [dir]="direction" fxHide.xs class="toolSection" mat-elevation-z8>
+<div  class="shimmerEffect" fxHide.gt-xs>
+  <div *ngIf="workShimmerCardBtn" class="itemRow">
+    <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '37px',
+      width: '300px',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
+  <div *ngIf="workShimmerCard" class="itemRow">
+    <ngx-skeleton-loader count="2" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '200px',
+      width: '450px',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
 
-  <mat-table #table [dataSource]="dataSource"  style="width: 100%">
+<div *ngIf="workShimmerPaginator" class="itemRow">
+  <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+    'border-radius': '5px',
+    height: '50px',
+    width: '300px',
+    border: '1px solid white'
+  }"></ngx-skeleton-loader>
+</div>
+
+</div>
+<Section  [dir]="direction" fxHide.xs  class="mainSection">
+
+  <div class="tableHeader" *ngIf="!workShimmerHeader">
+    <div *ngFor="let header of headerToShow" class="tableHeaderItem">{{header}}</div>
+  </div>
+  <div *ngIf="workShimmerHeader" class="item">
+    <ngx-skeleton-loader count="1" appearance="circle" [theme]="{ 
+      'border-radius': '5px',
+      height: '50px',
+      width: '100%',
+      border: '1px solid white'
+    }"></ngx-skeleton-loader>
+  </div>
+
+<div  class="toolSection" *ngIf="!workShimmerTable">
+    <mat-table  #table [dataSource]="dataSource"  style="width: 100%">
 
     <!-- Columns definition here to be displayed -->
 
@@ -106,7 +146,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.accountOpenId)" class="rowR" [class.active]="clickedRows.has(row)" ></mat-row>
 
   </mat-table>
-
+</div>
 
 <div *ngIf="workShimmerTable" class="item">
   <ngx-skeleton-loader count="1" appearance="line" [theme]="{ 

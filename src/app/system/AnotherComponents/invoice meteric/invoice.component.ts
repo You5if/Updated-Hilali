@@ -69,7 +69,7 @@ export class InvoiceMeterComponent implements OnInit {
 
   model!: Send;
     displayedColumns: string[] =
-        ['select','InvoiceNo', 'InvoiceDate','customer', 'warehouse', 'report', 'delete'];
+        ['InvoiceNo', 'InvoiceDate','customer', 'warehouse', 'report', 'delete'];
 
     dataSource: any;
     isLastPage = false;
@@ -174,7 +174,7 @@ export class InvoiceMeterComponent implements OnInit {
       if (this.role === '3') {
         this.headerToShow = [this.invoiceNo, this.invoiceDate,this.report]
       }else {
-        this.headerToShow = [this.invoiceNo, this.invoiceDate,this.report, this.delete]
+        this.headerToShow = [this.invoiceNo, this.invoiceDate, this.customer, this.warehouse, this.report, this.delete]
       }
 
     } else if (localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
@@ -193,7 +193,7 @@ export class InvoiceMeterComponent implements OnInit {
       if (this.role === '3') {
         this.headerToShow = [this.invoiceNo, this.invoiceDate,this.report]
       }else {
-        this.headerToShow = [this.invoiceNo, this.invoiceDate,this.report, this.delete]
+        this.headerToShow = [this.invoiceNo, this.invoiceDate, this.customer, this.warehouse, this.report, this.delete]
       }
     }
 

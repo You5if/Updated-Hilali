@@ -144,7 +144,7 @@ const routes: Routes = [
        { path: "InventoryReports", component: InventoryComponent},
        { path: "FiscalYear", component: FiscalYearComponent},
        { path: "AccountOpen", component: AccountOpenComponent},
-       { path: "ReportsPage", component: AccountOpenComponent},
+       { path: "ReportsPage", component: ReportPageComponent},
        { path: "StockOpen", component: StockOpenComponent},
        { path: "CustOpen", component: CustOpenComponent},
        { path: "SuppOpen", component: SuppOpenComponent},
