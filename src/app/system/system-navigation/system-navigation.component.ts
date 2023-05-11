@@ -99,6 +99,7 @@ export class SystemNavigationComponent implements OnInit {
   openPanel5: boolean;
   openPanel6: boolean;
   openPanel7: boolean;
+  journalD: string;
 
   constructor(private _globals: AppGlobals,
     public dialog: MatDialog,
@@ -130,6 +131,7 @@ ngOnInit(): void {
   this.home = "Home"
       this.businessP = "Company profile"
       this.journal = "Journal"
+      this.journalD = "Journal-Dynamic"
       this.expense = "Expenses"
       this.bank = "Bank"
       this.profile = "Profile"
@@ -312,6 +314,7 @@ onToggle() {
       this.home = "Home"
       this.businessP = "Company profile"
       this.journal = "Journal"
+      this.journalD = "Journal-Dynamic"
       this.expense = "Expenses"
       this.paymentFromCompany = "Payment to supplier"
       this.paymentToCompany = "Customer payment"
@@ -371,6 +374,7 @@ onToggle() {
       this.home = " الرئيسية "
       this.businessP = "حساب الشركة"
       this.journal = "السجلات"
+      this.journalD = "السجلات"
       this.invoice = "الفواتير"
       this.invoiceM = "الفواتير (المتر المربع)"
       this.bank = "البنك"
@@ -426,6 +430,7 @@ onToggle() {
       this.home = "Home"
       this.businessP = "Business Profile"
       this.journal = "journal"
+      this.journalD = "Journal-Dynamic"
       this.invoice = "Invoice"
       this.invoiceM = "Invoice (cubic meter)"
       this.paymentFromCompany = "Company payment"

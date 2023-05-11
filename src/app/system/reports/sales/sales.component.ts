@@ -93,6 +93,7 @@ export class SalesComponent implements OnInit {
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
     //this._nav.onClickListItem('FRP');
+    this.router.navigate(['/System/ReportsPage']);
   }
   onFetch() { 
     const reportId:number = 13
@@ -103,6 +104,7 @@ export class SalesComponent implements OnInit {
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
     //this._nav.onClickListItem('FRP');
+    this.router.navigate(['/System/ReportsPage']);
   }
   onProfile() { 
     const reportId:number = 8
@@ -113,6 +115,7 @@ export class SalesComponent implements OnInit {
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
     //this._nav.onClickListItem('FRP');
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   onChangeCustomer(id: number) {

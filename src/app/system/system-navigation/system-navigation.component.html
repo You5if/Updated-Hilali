@@ -49,6 +49,7 @@
           </mat-expansion-panel-header>
           <!-- <li *ngIf="role === '2'" routerLink="customer" routerLinkActive="is-active"  class="side_list_item"><mat-icon>person</mat-icon><div class="title"> {{customer}}</div></li> -->
           <li *ngIf="role === '3' || role === '2'" routerLink="JournalEntry" routerLinkActive="is-active" class="side_list_item"><mat-icon>library_books</mat-icon><div class="title"> {{journal}}</div></li>
+          <li *ngIf="role === '3' || role === '2'" routerLink="JournalEntryDynamic" routerLinkActive="is-active" class="side_list_item"><mat-icon>library_books</mat-icon><div class="title"> {{journalD}}</div></li>
           <li *ngIf="role === '3' || role === '2' || role === '9'" routerLink="Expense" routerLinkActive="is-active"  class="side_list_item"><mat-icon> local_atm</mat-icon><div class="title"> {{expense}}</div></li> 
         </mat-expansion-panel>
         
@@ -65,9 +66,9 @@
         <li *ngIf="role === '4' || role === '2'" routerLink="Forex" routerLinkActive="is-active" class="side_list_item"><mat-icon> attach_money</mat-icon><div class="title"> {{forex}}</div></li>
         <!-- <li *ngIf="role === '4' || role === '2'" (click)="onClickListItem('A')" class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{account}}</div></li> -->
         <li *ngIf="role === '4' || role === '2'" routerLink="AccountConfig" routerLinkActive="is-active" class="side_list_item"><mat-icon> vpn_key</mat-icon><div class="title">{{accountConfiguration}}</div></li>
-        <li *ngIf="role === '4' || role === '2'" routerLink="Bank" routerLinkActive="is-active" class="side_list_item"><mat-icon>account_balance</mat-icon><div class="title">{{bank}}</div></li>
+        <!-- <li *ngIf="role === '4' || role === '2'" routerLink="Bank" routerLinkActive="is-active" class="side_list_item"><mat-icon>account_balance</mat-icon><div class="title">{{bank}}</div></li>
         <li *ngIf="role === '4' || role === '2'" routerLink="BankBranch" routerLinkActive="is-active" class="side_list_item"><mat-icon>account_balance</mat-icon><div class="title">{{bankBranch}}</div></li>
-        <li *ngIf="role === '4' || role === '2'" routerLink="BankAccount" routerLinkActive="is-active" class="side_list_item"><mat-icon> account_balance</mat-icon><div class="title">{{bankAccount}}</div></li>
+        <li *ngIf="role === '4' || role === '2'" routerLink="BankAccount" routerLinkActive="is-active" class="side_list_item"><mat-icon> account_balance</mat-icon><div class="title">{{bankAccount}}</div></li> -->
         </mat-expansion-panel>
         <mat-expansion-panel *ngIf="role === '5' || role === '2' || role === '3' || role === '9' || role === '10'" (opened)="openPanels(3)" class="mat-elevation-z0"  [expanded]="openPanel3" hideToggle appCustomMatExpansionToggle>
           <mat-expansion-panel-header [@.disabled]="true">
@@ -77,7 +78,7 @@
             <div><mat-icon class="indicator">chevron_right</mat-icon></div>
           </mat-expansion-panel-header>
           <li *ngIf="role === '5' || role === '2'" routerLink="Customer" routerLinkActive="is-active" class="side_list_item"><mat-icon>group</mat-icon><div class="title">{{customer}}</div></li>
-        <li *ngIf="role === '5' || role === '2' || role === '9' || role === '10'" routerLink="Invoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoice}}</div></li>
+        <!-- <li *ngIf="role === '5' || role === '2' || role === '9' || role === '10'" routerLink="Invoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoice}}</div></li> -->
         <li *ngIf="role === '2'" routerLink="InvoiceMeter" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoiceM}}</div></li>
         <li *ngIf="role === '5' || role === '2' || role === '9'" routerLink="PaymentToCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentToCompany}}</div></li>
         <li *ngIf="role === '5' || role === '2' || role === '9'" routerLink="PaymentFromCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentFromCompany}}</div></li>

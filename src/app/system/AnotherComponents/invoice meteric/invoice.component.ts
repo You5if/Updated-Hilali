@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/components/security/auth/auth.service';
 import {  InvoiceMeterEntryComponent } from './invoice-entry/invoice-entry.component';
 import { DeleteModel, InvoiceModel } from './invoice.model';
 import { RightModel } from 'src/app/components/security/auth/rights.model';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { PageSortComponent } from 'src/app/components/common/pageevents/page-sort/page-sort.component';
 import { InvoiceService } from './invoice.service';
 import { SelectModel } from 'src/app/components/misc/SelectModel';
@@ -112,6 +112,7 @@ export class InvoiceMeterComponent implements OnInit {
         public dialog: MatDialog,
         private _cf: CommonService,
         private _report: ReportPageService,
+        private router: Router,
         private _ui: UIService,
         private _globals: AppGlobals,
         private _msg: MessageBoxService,
@@ -337,6 +338,7 @@ export class InvoiceMeterComponent implements OnInit {
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
     //this._nav.onClickListItem('FRP');
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   onDelete(idAC:number) { 

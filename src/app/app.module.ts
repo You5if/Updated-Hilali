@@ -286,6 +286,8 @@ import { CustomMatExpansionToggleDirective } from "./system/system-navigation/ex
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
 import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { SnackbarComponent } from "./components/snackbar/snackbar.component";
+import { JournalDynamicComponent } from "./system/journal-dynamic/stockin.component";
+import { JournalDynamicEntryComponent } from "./system/journal-dynamic/stockin-entry/stockin-entry.component";
 
 
 
@@ -568,6 +570,8 @@ export const jwtConfig = {
     InvoiceMeterEntryComponent,
     CustomMatExpansionToggleDirective,
     SnackbarComponent,
+    JournalDynamicComponent,
+    JournalDynamicEntryComponent,
     
 
 
@@ -752,6 +756,7 @@ export const jwtConfig = {
     InvoiceMeterEntryComponent,
     CustomMatExpansionToggleDirective,
     SnackbarComponent,
+    JournalDynamicEntryComponent,
   ]
 })
 export class AppModule {}

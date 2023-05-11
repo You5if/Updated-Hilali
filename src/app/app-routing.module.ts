@@ -77,6 +77,8 @@ import { AccountOpenComponent } from "./system/FYM/accountopen/accountopen.compo
 import { StockOpenComponent } from "./system/FYM/stockopen/stockopen.component";
 import { CustOpenComponent } from "./system/FYM/custopen/custopen.component";
 import { SuppOpenComponent } from "./system/FYM/suppopen/suppopen.component";
+import { JournalDynamicEntryComponent } from "./system/journal-dynamic/stockin-entry/stockin-entry.component";
+import { JournalDynamicComponent } from "./system/journal-dynamic/stockin.component";
 
 
 
@@ -113,6 +115,7 @@ const routes: Routes = [
        { path: "Account", component: AccountComponent},
        { path: "Forex", component: ForexComponent},
        { path: "JournalEntry", component: JournalEntryComponent},
+       { path: "JournalEntryDynamic", component: JournalDynamicComponent},
        { path: "Expense", component: ExpenseFilingComponent},
        { path: "AccountConfig", component: AccountConfigurationComponent},
        { path: "Customer", component: CustomerComponent},

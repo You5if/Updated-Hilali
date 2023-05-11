@@ -148,7 +148,7 @@ export class JournalEntryComponent implements OnInit {
       this.ref = " Reference"
       this.edit = "Edit"
       this.header = "Journals"
-      this.headerToShow = [this.code, this.entryDate,this.ref, this.debitacc, this.amount, this.creditacc, this.currency]
+      this.headerToShow = [this.code, this.entryDate,this.amount, this.currency, this.report]
 
     } else if (localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
@@ -163,7 +163,7 @@ export class JournalEntryComponent implements OnInit {
       this.currency = "العملة"
       this.edit = "تعديل"
       this.header = "السجلات"
-      this.headerToShow = [this.code, this.entryDate,this.ref, this.debitacc, this.amount, this.creditacc, this.currency]
+      this.headerToShow = [this.code, this.entryDate,this.amount, this.currency, this.report]
 
     }
 

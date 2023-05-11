@@ -214,6 +214,7 @@ export class FinancialComponent implements OnInit {
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId!, restOfUrl: restOfUrl }); 
     //this._nav.onClickListItem('FRP');
+    this.router.navigate(['/System/ReportsPage']);
   }
  
   paginatoryOperation(event: PageEvent) {
